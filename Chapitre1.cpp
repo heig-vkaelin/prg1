@@ -35,15 +35,15 @@ void ex1_4() {
 	int age;
 	int annee_naissance;
 
-	cout << "Entrez votre prénom" << endl;
+	cout << "Entrez votre prenom:" << endl;
 	getline(cin, prenom);
 
-	cout << "Entrez votre âge" << endl;
+	cout << "Entrez votre age:" << endl;
 	cin >> age;
 	annee_naissance = 2020 - age;
 
 	cout << "Bonjour " << prenom << endl;
-	cout << "Vous avez " << age << " ans et vous êtes né(e) en " << annee_naissance
+	cout << "Vous avez " << age << " ans et vous etes ne(e) en " << annee_naissance
 	<<  "." << endl;
 }
 
