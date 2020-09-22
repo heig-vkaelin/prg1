@@ -9,4 +9,6 @@ void ex1_2();
 void ex1_3();
 void ex1_4();
 
+void ex2_4();
+
 #endif //PREMIERPROJET_EXERCICES_H
