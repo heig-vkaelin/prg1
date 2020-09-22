@@ -1,5 +1,5 @@
 //
-// Created by Valentin Kaelin on 18.09.20.
+// Created by Valentin Kaelin on 22.09.20.
 //
 #include <iostream>
 
@@ -9,7 +9,7 @@ void ex2_4() {
 	cout << "signed char (" << sizeof(signed char) * 8 << " bits) : " << SCHAR_MIN <<
 		  " .. " << SCHAR_MAX << endl;
 
-	cout << "char (" << sizeof(char) * 8 << " bits) : " << SHRT_MIN << " .. " <<
+	cout << "short (" << sizeof(short) * 8 << " bits) : " << SHRT_MIN << " .. " <<
 		  SHRT_MAX << endl;
 
 	cout << "int (" << sizeof(int) * 8 << " bits) : " << INT_MIN << " .. " <<
