@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include <limits>
+#include <cmath>
 
 using namespace std;
 
@@ -28,9 +29,20 @@ int ex2_4() {
 
 
 int ex2_13() {
-	double a = 12;
+	unsigned int saisie;
 
-	cout << a << endl;
+	cout << "Entrez un nombre entier > 0 : ";
+	cin >> saisie;
+
+	int nbChiffres = (int) log10(saisie) + 1;
+	int premierChiffre = (int) (saisie / pow(10, nbChiffres - 1));
+	int dernierChiffre = saisie % 10;
+
+	cout << endl;
+	cout << "Nombre saisi         : " << saisie << endl;
+	cout << "Nombre de chiffres   : " << nbChiffres << endl;
+	cout << "Premier chiffre      : " << premierChiffre << endl;
+	cout << "Dernier chiffre      : " << dernierChiffre << endl;
 
 	return EXIT_SUCCESS;
 }
