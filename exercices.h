@@ -2,13 +2,14 @@
 // Created by Valentin Kaelin on 18.09.20.
 //
 
-#ifndef PREMIERPROJET_EXERCICES_H
-#define PREMIERPROJET_EXERCICES_H
+#ifndef PRG1_EXERCICES_H
+#define PRG1_EXERCICES_H
 
-void ex1_2();
-void ex1_3();
-void ex1_4();
+int ex1_2();
+int ex1_3();
+int ex1_4();
 
-void ex2_4();
+int ex2_4();
+int ex2_13();
 
-#endif //PREMIERPROJET_EXERCICES_H
+#endif // PRG1_EXERCICES_H

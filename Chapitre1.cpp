@@ -7,16 +7,18 @@
 
 using namespace std;
 
-void ex1_2() {
+int ex1_2() {
 	cout << "  /////" << endl;
 	cout << " +-----+" << endl;
 	cout << "(| o o |)" << endl;
 	cout << " |  ^  |" << endl;
 	cout << " | '-' |" << endl;
 	cout << " +-----+" << endl;
+
+	return EXIT_SUCCESS;
 }
 
-void ex1_3() {
+int ex1_3() {
 	cout << "------------------------------------------------" << endl;
 	cout << "| Type       |	Nom     | Gaz prin. | Gaz sec. |" << endl;
 	cout << "| Tellurique |	Mercure | -         | -        |" << endl;
@@ -28,9 +30,11 @@ void ex1_3() {
 	cout << "| Gazeuse    |	Uranus  | H2        | He       |" << endl;
 	cout << "| Gazeuse    |	Neptune | H2        | He       |" << endl;
 	cout << "------------------------------------------------" << endl;
+
+	return EXIT_SUCCESS;
 }
 
-void ex1_4() {
+int ex1_4() {
 	string prenom;
 	int age;
 	int annee_naissance;
@@ -45,9 +49,11 @@ void ex1_4() {
 	cout << "Bonjour " << prenom << endl;
 	cout << "Vous avez " << age << " ans et vous etes ne(e) en " << annee_naissance
 	<<  "." << endl;
+
+	return EXIT_SUCCESS;
 }
 
-void ex1_5() {
+int ex1_5() {
 	/* calculer coutTotalDuTrain = cout du billet simple course
 	 * calculer consommationEssence = distance * consommation / 100
 	 * calculer coutEssence = consommationEssence * prix du litre d'essence
@@ -59,9 +65,11 @@ void ex1_5() {
 	 * sinon
 	 *  	choisir voiture
 	 */
+
+	return EXIT_SUCCESS;
 }
 
-void ex1_6() {
+int ex1_6() {
 	/* calculer solde = solde du compte bancaire initial (10000)
 	 * calculer mois = 0
 	 * tant que solde > 0
@@ -72,9 +80,11 @@ void ex1_6() {
 	 *
 	 *	afficher la valeur de mois
 	 */
+
+	return EXIT_SUCCESS;
 }
 
-void ex1_7() {
+int ex1_7() {
 	/* afficher un message demandant le solde à l'utilisateur
 	 * calculer solde = entrée de l'utilisateur
 	 * afficher un message demandant le taux d'intérêt annuel
@@ -90,4 +100,6 @@ void ex1_7() {
 	 *
 	 *	afficher la valeur de mois
 	 */
+
+	return EXIT_SUCCESS;
 }

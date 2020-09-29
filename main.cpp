@@ -1,11 +1,10 @@
 #include "exercices.h"
 
 int main() {
-	// ex1_2();
-	// ex1_3();
-	// ex1_4();
+	// return ex1_2();
+	// return ex1_3();
+	// return ex1_4();
 
-	ex2_4();
-
-	return 0;
+	// return ex2_4();
+	return ex2_13();
 }
