@@ -29,14 +29,14 @@ int ex2_4() {
 
 
 int ex2_13() {
-	unsigned int saisie;
+	unsigned saisie;
 
 	cout << "Entrez un nombre entier > 0 : ";
 	cin >> saisie;
 
-	int nbChiffres = (int) log10(saisie) + 1;
-	int premierChiffre = (int) (saisie / pow(10, nbChiffres - 1));
-	int dernierChiffre = saisie % 10;
+	unsigned nbChiffres = (unsigned) log10(saisie) + 1;
+	unsigned premierChiffre = (unsigned) (saisie / pow(10, nbChiffres - 1));
+	unsigned dernierChiffre = saisie % 10;
 
 	cout << endl;
 	cout << "Nombre saisi         : " << saisie << endl;

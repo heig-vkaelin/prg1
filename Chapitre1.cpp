@@ -48,7 +48,7 @@ int ex1_4() {
 
 	cout << "Bonjour " << prenom << endl;
 	cout << "Vous avez " << age << " ans et vous etes ne(e) en " << annee_naissance
-	<<  "." << endl;
+		  << "." << endl;
 
 	return EXIT_SUCCESS;
 }
