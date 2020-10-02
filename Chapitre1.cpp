@@ -37,18 +37,17 @@ int ex1_3() {
 int ex1_4() {
 	string prenom;
 	int age;
-	int annee_naissance;
+	const int ANNEE_COURANTE = 2020;
 
 	cout << "Entrez votre prenom:" << endl;
 	getline(cin, prenom);
 
 	cout << "Entrez votre age:" << endl;
 	cin >> age;
-	annee_naissance = 2020 - age;
 
-	cout << "Bonjour " << prenom << endl;
-	cout << "Vous avez " << age << " ans et vous etes ne(e) en " << annee_naissance
-		  << "." << endl;
+	cout << "Bonjour " << prenom << endl
+		  << "Vous avez " << age << " ans et vous etes ne(e) en "
+		  << ANNEE_COURANTE - age << "." << endl;
 
 	return EXIT_SUCCESS;
 }
