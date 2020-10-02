@@ -58,6 +58,25 @@ int ex2_11() {
 	return EXIT_SUCCESS;
 }
 
+int ex2_12() {
+	unsigned metres;
+
+	cout << "Entrez le nombre de metres a convertir (entier > 0) : ";
+	cin >> metres;
+
+	double miles = metres * 0.00062137;
+	double pieds = metres / 0.3048;
+	double pouces = metres / 0.0254;
+
+	cout << fixed << setprecision(2) << endl;
+	cout << metres << " [m]";
+	cout << setw(3) << "= " << miles << " [mile]" << endl;
+	cout << setw(11) << "= " << pieds << " [ft]" << endl;
+	cout << setw(11) << "= " << pouces << " [inch]" << endl;
+
+	return EXIT_SUCCESS;
+}
+
 
 int ex2_13() {
 	unsigned saisie;
