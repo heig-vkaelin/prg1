@@ -29,50 +29,50 @@ int ex2_4() {
 }
 
 int ex2_11() {
-	double r1, r2, h1, h2, h3;
-	double volumePremierCylindre, volumeSecondCylindre, volumeCone, volumeTotalLitres;
+	const double CM3_EN_LITRE = 1E-3;
+	double r1, r2, h1, h2, h3; // [cm]
 
-	cout << "Entrez le rayon du 1er cylindre (en cm) : " << endl;
+	cout << "Entrez le rayon du cylindre 1 (en cm) : " << endl;
 	cin >> r1;
-	cout << "Entrez la hauteur du 1er cylindre (en cm) : " << endl;
-	cin >> h1;
-	cout << "Entrez le rayon du 2e cylindre (en cm) : " << endl;
+	cout << "Entrez le rayon du cylindre 2 (en cm) : " << endl;
 	cin >> r2;
-	cout << "Entrez la hauteur du 2e cylindre (en cm) : " << endl;
+	cout << "Entrez la hauteur du cylindre 1 (en cm) : " << endl;
+	cin >> h1;
+	cout << "Entrez la hauteur du cylindre 2 (en cm) : " << endl;
 	cin >> h2;
-	cout << "Entrez la hauteur du cône tronqué (en cm) : " << endl;
+	cout << "Entrez la hauteur du tronc du cone (en cm) : " << endl;
 	cin >> h3;
 
-	volumePremierCylindre = M_PI * pow(r1, 2) * h1;
-	// cout << "vol " << volumePremierCylindre << endl;
-	volumeSecondCylindre = M_PI * pow(r2, 2) * h2;
-	volumeCone = M_PI / 3.0 * h3 * (pow(r1, 2) + pow(r2, 2) + r1 * r2);
+	const double VOLUME_CYLINDRE_1 = M_PI * r1 * r1 * h1,
+		VOLUME_CYLINDRE_2 = M_PI * r2 * r2 * h2,
+		VOLUME_CONE = M_PI * (r1 * r1 + r1 * r2 + r2 * r2) * h3 / 3,
+		VOLUME_TOTAL = (VOLUME_CYLINDRE_1 + VOLUME_CYLINDRE_2 + VOLUME_CONE) *
+							CM3_EN_LITRE;
 
-	// Conversion de cm cube en litres
-	volumeTotalLitres = (volumePremierCylindre + volumeSecondCylindre + volumeCone)
-	/ 1000.0;
-
-	cout << fixed << setprecision(1);
-	cout << "La bouteille peut contenir " << volumeTotalLitres << " litres." << endl;
+	cout << fixed << setprecision(1)
+		  << "La bouteille peut contenir " << VOLUME_TOTAL << " litre"
+		  << (VOLUME_TOTAL < 2 ? "" : "s") << "." << endl;
 
 	return EXIT_SUCCESS;
 }
 
 int ex2_12() {
-	unsigned metres;
+	const double METRES_EN_MILES = 6.213711922e-4,
+		METRES_EN_PIEDS = 3.280839895,
+		METRES_EN_POUCES = 39.37007874;
 
+	// Saisie utilisateur
+	unsigned nbMetres;
 	cout << "Entrez le nombre de metres a convertir (entier > 0) : ";
-	cin >> metres;
+	cin >> nbMetres;
 
-	double miles = metres * 0.00062137;
-	double pieds = metres / 0.3048;
-	double pouces = metres / 0.0254;
+	// Affichage du résultat des diverses conversions
+	const int W = (int) log10(nbMetres) + 8;
 
-	cout << fixed << setprecision(2) << endl;
-	cout << metres << " [m]";
-	cout << setw(3) << "= " << miles << " [mile]" << endl;
-	cout << setw(11) << "= " << pieds << " [ft]" << endl;
-	cout << setw(11) << "= " << pouces << " [inch]" << endl;
+	cout << fixed << setprecision(2) << endl
+		  << nbMetres << " [m] = " << nbMetres * METRES_EN_MILES << " [mile]" << endl
+		  << setw(W) << "= " << nbMetres * METRES_EN_PIEDS << " [ft]" << endl
+		  << setw(W) << "= " << nbMetres * METRES_EN_POUCES << " [inch]" << endl;
 
 	return EXIT_SUCCESS;
 }
