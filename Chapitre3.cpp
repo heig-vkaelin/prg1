@@ -16,6 +16,8 @@ int ex3_8() {
 	cout << "Entrez un no de mois (1-12) :";
 	cin >> noMois;
 
+	// Pour ne pas avoir à utiliser la lib string:
+	// Utiliser le ternaire directement dans le cout
 	string jours = (noMois == 4 || noMois == 6 || noMois == 9 || noMois == 11) ?
 						"30" : noMois == 2 ? "28 ou 29" : "31";
 
@@ -101,14 +103,14 @@ int ex3_15() {
 	noMois--;
 
 	switch (noMois) {
+		case (int)Mois::FEVRIER:
+			jours = "28 ou 29";
+			break;
 		case (int)Mois::AVRIL:
 		case (int)Mois::JUIN:
 		case (int)Mois::SEPTEMBRE:
 		case (int)Mois::NOVEMBRE:
 			jours = "30";
-			break;
-		case (int)Mois::FEVRIER:
-			jours = "28 ou 29";
 			break;
 		default:
 			jours = "31";
