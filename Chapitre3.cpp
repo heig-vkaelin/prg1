@@ -73,9 +73,9 @@ int ex3_12() {
 
 	if (moyenne > 5.5) {
 		evaluation = "Excellent";
-	} else if (moyenne >= 5) {
+	} else if (moyenne > 5) {
 		evaluation = "Très bien";
-	} else if (moyenne >= 4.5) {
+	} else if (moyenne > 4.5) {
 		evaluation = "Bien";
 	} else if (moyenne >= 4.0) {
 		evaluation = "Moyen";
