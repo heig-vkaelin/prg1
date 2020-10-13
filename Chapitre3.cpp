@@ -91,7 +91,7 @@ int ex3_12() {
 
 int ex3_15() {
 	enum class Mois {
-		JANVIER, FEVRIER, MARS, AVRIL, MAI, JUIN, JUILLET, AOUT,
+		JANVIER = 1, FEVRIER, MARS, AVRIL, MAI, JUIN, JUILLET, AOUT,
 		SEPTEMBRE, OCTOBRE, NOVEMBRE, DECEMBRE
 	};
 	int noMois;
@@ -99,8 +99,6 @@ int ex3_15() {
 
 	cout << "Entrez un no de mois (1-12) :";
 	cin >> noMois;
-	// Car l'énumération commence à 0
-	noMois--;
 
 	switch (noMois) {
 		case (int)Mois::FEVRIER:
