@@ -101,13 +101,13 @@ int ex3_15() {
 	cin >> noMois;
 
 	switch (noMois) {
-		case (int)Mois::FEVRIER:
+		case (int) Mois::FEVRIER:
 			jours = "28 ou 29";
 			break;
-		case (int)Mois::AVRIL:
-		case (int)Mois::JUIN:
-		case (int)Mois::SEPTEMBRE:
-		case (int)Mois::NOVEMBRE:
+		case (int) Mois::AVRIL:
+		case (int) Mois::JUIN:
+		case (int) Mois::SEPTEMBRE:
+		case (int) Mois::NOVEMBRE:
 			jours = "30";
 			break;
 		default:
