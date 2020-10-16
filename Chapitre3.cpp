@@ -118,3 +118,86 @@ int ex3_15() {
 
 	return EXIT_SUCCESS;
 }
+
+int ex3_19() {
+	double montant;
+	double tauxInteretAnnuel;
+
+	cout << "Entrez un montant :";
+	cin >> montant;
+	cout << "Entrez un taux d'interet annuel (en %) :";
+	cin >> tauxInteretAnnuel;
+
+	const double MONTANT_CIBLE = montant * 2;
+
+	// Avec boucle
+	//	int annee = 0;
+	//	while (montant < MONTANT_CIBLE) {
+	//		++annee;
+	//		double interet = montant * tauxInteretAnnuel / 100.0;
+	//		montant += interet;
+	//	}
+
+	// Sans boucle
+	// https://fr.wikipedia.org/wiki/Int%C3%A9r%C3%AAts_compos%C3%A9s
+	double annee = ceil(
+		log(MONTANT_CIBLE / montant) /
+		log(1 + tauxInteretAnnuel / 100.0));
+
+	cout << "Le montant sera doublé après " << annee << " années." << endl;
+	return EXIT_SUCCESS;
+}
+
+int ex3_20() {
+	const int W = 3;
+	const int NOMBRE_MAX = 20;
+	const int TAILLE_LOTS = 3;
+
+	// 1) Version while
+	int i = NOMBRE_MAX;
+	while (i > 0) {
+		cout << setw(W) << i;
+		if (i % TAILLE_LOTS == 0) {
+			cout << endl;
+		}
+		i--;
+	}
+
+	cout << endl << endl;
+
+	// 2) Version for
+	for (int j = NOMBRE_MAX; j > 0; --j) {
+		cout << setw(W) << j;
+		if (j % TAILLE_LOTS == 0) {
+			cout << endl;
+		}
+	}
+
+	return EXIT_SUCCESS;
+}
+
+int ex3_26() {
+	int h;
+	bool saisieOK;
+
+	do {
+		cout << "Hauteur du triangle (h >= 0) :";
+		if (!(saisieOK = cin >> h && h >= 0)) {
+			cin.clear();
+			cout << "Saisie incorrecte. Veuillez recommencer." << endl;
+		}
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	} while (!saisieOK);
+
+	for (int ligne = 1; ligne <= h; ++ligne) {
+		for (int espace = ligne; espace < h; ++espace) {
+			cout << " ";
+		}
+		for (int etoile = 1; etoile <= (2 * ligne - 1); etoile++) {
+			cout << "*";
+		}
+		cout << endl;
+	}
+
+	return EXIT_SUCCESS;
+}
