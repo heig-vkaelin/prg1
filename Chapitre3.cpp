@@ -40,6 +40,12 @@ int ex3_9() {
 		min = c;
 	}
 
+	{
+		// Autre variante
+		int min = a < b ? a : b;
+		min = c < min ? c : min;
+	}
+
 	cout << "Le minimum des 3 entiers est: " << min << endl;
 
 	return EXIT_SUCCESS;
@@ -64,27 +70,28 @@ int ex3_11() {
 }
 
 int ex3_12() {
+	const unsigned NB_NOTES = 4;
 	double n1, n2, n3, n4;
-	cout << "Entrez 4 notes [1-6] :";
+	cout << "Entrez " << NB_NOTES << " notes [1-6] :";
 	cin >> n1 >> n2 >> n3 >> n4;
 
-	double moyenne = (n1 + n2 + n3 + n4) / 4.0;
-	string evaluation;
-
-	if (moyenne > 5.5) {
-		evaluation = "Excellent";
-	} else if (moyenne > 5) {
-		evaluation = "Très bien";
-	} else if (moyenne > 4.5) {
-		evaluation = "Bien";
-	} else if (moyenne >= 4.0) {
-		evaluation = "Moyen";
-	} else {
-		evaluation = "Insuffisant";
-	}
+	double moyenne = (n1 + n2 + n3 + n4) / NB_NOTES;
 
 	cout << fixed << setprecision(1)
-		  << "Moyenne = " << moyenne << " - " << evaluation << endl;
+		  << "Moyenne = " << moyenne << " - ";
+
+	if (moyenne > 5.5) {
+		cout << "Excellent";
+	} else if (moyenne > 5) {
+		cout << "Très bien";
+	} else if (moyenne > 4.5) {
+		cout << "Bien";
+	} else if (moyenne >= 4.0) {
+		cout << "Moyen";
+	} else {
+		cout << "Insuffisant";
+	}
+	cout << endl;
 
 	return EXIT_SUCCESS;
 }
