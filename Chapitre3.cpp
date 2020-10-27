@@ -101,43 +101,44 @@ int ex3_15() {
 		JANVIER = 1, FEVRIER, MARS, AVRIL, MAI, JUIN, JUILLET, AOUT,
 		SEPTEMBRE, OCTOBRE, NOVEMBRE, DECEMBRE
 	};
-	int noMois;
-	string jours;
+	unsigned noMois;
 
 	cout << "Entrez un no de mois (1-12) :";
 	cin >> noMois;
 
-	switch (noMois) {
-		case (int) Mois::FEVRIER:
-			jours = "28 ou 29";
+	cout << "Ce mois comporte ";
+
+	switch ((Mois) noMois) {
+		case Mois::FEVRIER:
+			cout << "28 ou 29";
 			break;
-		case (int) Mois::AVRIL:
-		case (int) Mois::JUIN:
-		case (int) Mois::SEPTEMBRE:
-		case (int) Mois::NOVEMBRE:
-			jours = "30";
+		case Mois::AVRIL:
+		case Mois::JUIN:
+		case Mois::SEPTEMBRE:
+		case Mois::NOVEMBRE:
+			cout << "30";
 			break;
 		default:
-			jours = "31";
+			cout << "31";
+			break;
 	}
 
-	cout << "Ce mois comporte " << jours << " jours." << endl;
+	cout << " jours." << endl;
 
 	return EXIT_SUCCESS;
 }
 
 int ex3_19() {
-	double montant;
-	double tauxInteretAnnuel;
+	double tauxInteretAnnuel; // en %
 
-	cout << "Entrez un montant :";
-	cin >> montant;
 	cout << "Entrez un taux d'interet annuel (en %) :";
 	cin >> tauxInteretAnnuel;
 
-	const double MONTANT_CIBLE = montant * 2;
-
 	// Avec boucle
+	// double montant;
+	// cout << "Entrez un montant :";
+	// cin >> montant;
+	// const double MONTANT_CIBLE = montant * 2;
 	//	int annee = 0;
 	//	while (montant < MONTANT_CIBLE) {
 	//		++annee;
@@ -147,36 +148,47 @@ int ex3_19() {
 
 	// Sans boucle
 	// https://fr.wikipedia.org/wiki/Int%C3%A9r%C3%AAts_compos%C3%A9s
-	double annee = ceil(
-		log(MONTANT_CIBLE / montant) /
-		log(1 + tauxInteretAnnuel / 100.0));
+	const unsigned NB_ANNEES =
+		(unsigned) ceil(log(2) / log10(1 + tauxInteretAnnuel / 100));
 
-	cout << "Le montant sera doublé après " << annee << " années." << endl;
+	cout << "Le montant aura double apres " << NB_ANNEES
+		  << "an" << (NB_ANNEES > 1 ? "s" : "") << "." << endl;
 	return EXIT_SUCCESS;
 }
 
 int ex3_20() {
-	const int W = 3;
-	const int NOMBRE_MAX = 20;
-	const int TAILLE_LOTS = 3;
+	const unsigned NB_COLONNES = 3;
+	const unsigned N_DEPART = 20; // > 0
+	const unsigned N_FIN = 1; // > 0 et <= N_DEPART
+	const int W = (int) log10(N_DEPART) + 1; // Nb de chiffres dans N_DEPART
 
 	// 1) Version while
-	int i = NOMBRE_MAX;
-	while (i > 0) {
-		cout << setw(W) << i;
-		if (i % TAILLE_LOTS == 0) {
+	unsigned n = N_DEPART, noColonne = 1;
+	while (n >= N_FIN) {
+		cout << setw(W) << n;
+		if (noColonne == NB_COLONNES) {
 			cout << endl;
+			noColonne = 0;
+		} else {
+			if (n != N_FIN) {
+				cout << " ";
+			}
 		}
-		i--;
+		noColonne++;
+		n--;
 	}
-
 	cout << endl << endl;
 
 	// 2) Version for
-	for (int j = NOMBRE_MAX; j > 0; --j) {
-		cout << setw(W) << j;
-		if (j % TAILLE_LOTS == 0) {
+	for (unsigned i = N_DEPART, noCol = 1; i >= N_FIN; ++noCol, --i) {
+		cout << setw(W) << i;
+		if (noCol == NB_COLONNES) {
 			cout << endl;
+			noCol = 0;
+		} else {
+			if (n != N_FIN) {
+				cout << " ";
+			}
 		}
 	}
 
