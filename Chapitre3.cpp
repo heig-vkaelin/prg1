@@ -220,3 +220,31 @@ int ex3_26() {
 
 	return EXIT_SUCCESS;
 }
+
+int ex3_29() {
+	int m, n;
+	int ppmc;
+	bool saisieOK;
+
+	do {
+		cout << "Entrez deux nombres entiers (> 0) :";
+		cin >> m >> n;
+		saisieOK = m > 0 && n > 0;
+		if (!saisieOK) {
+			cin.clear();
+			cout << "Saisie incorrecte. Veuillez recommencer." << endl;
+		}
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	} while (!saisieOK);
+
+	int min = m < n ? m : n;
+	int max = m == min ? n : m;
+	ppmc = max;
+	while (ppmc % min != 0) {
+		ppmc += max;
+	}
+
+	cout << "PPMC entre " << m << " et " << n << " : " << ppmc << endl;
+
+	return EXIT_SUCCESS;
+}
