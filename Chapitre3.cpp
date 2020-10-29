@@ -249,3 +249,41 @@ int ex3_29() {
 
 	return EXIT_SUCCESS;
 }
+
+int ex3_32() {
+	int nbTirs = 100000;
+	int nbTirsCercle = 0;
+	const int RAYON_CERCLE = 1;
+
+	for (int tir = 0; tir < nbTirs; ++tir) {
+		double xCoord = rand() / (RAND_MAX / 2.0) - 1;
+		double yCoord = rand() / (RAND_MAX / 2.0) - 1;
+
+		// Racine pas obligatoire ici car cercle de rayon 1 => 1 * 1 = 1
+		double distanceDuCentre = sqrt(xCoord * xCoord + yCoord * yCoord);
+		if (distanceDuCentre <= RAYON_CERCLE) {
+			nbTirsCercle++;
+		}
+	}
+
+	const double PI = RAYON_CERCLE * 2.0 * RAYON_CERCLE * 2 * nbTirsCercle / nbTirs;
+	cout << fixed << setprecision(2);
+	cout << "Valeur de PI calculee: " << PI << endl;
+
+	return EXIT_SUCCESS;
+}
+
+int ex3_33() {
+	int nbTentatives = 1000;
+	int porteMax = 3;
+	int porteMin = 1;
+
+	for (int i = 0; i < nbTentatives; ++i) {
+		int porteChoisie = rand() % (porteMax - porteMin + 1) + porteMin; // 0, 1 ou 2
+		int porteVoiture = rand() % (porteMax - porteMin + 1) + porteMin; // 0, 1 ou 2
+
+		cout << porteChoisie << " " << porteVoiture;
+	}
+
+	return EXIT_SUCCESS;
+}

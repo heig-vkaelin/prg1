@@ -18,5 +18,7 @@ int main() {
 	// return ex3_19();
 	// return ex3_20();
 	// return ex3_26();
-	return ex3_29();
+	// return ex3_29();
+	// return ex3_32();
+	return ex3_33();
 }
