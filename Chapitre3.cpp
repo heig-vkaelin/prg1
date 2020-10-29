@@ -196,24 +196,25 @@ int ex3_20() {
 }
 
 int ex3_26() {
-	int h;
+	int hauteur;
 	bool saisieOK;
+	const char MOTIF = '*';
 
 	do {
 		cout << "Hauteur du triangle (h >= 0) :";
-		if (!(saisieOK = cin >> h && h >= 0)) {
+		if (!(saisieOK = cin >> hauteur && hauteur >= 0)) {
 			cin.clear();
 			cout << "Saisie incorrecte. Veuillez recommencer." << endl;
 		}
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	} while (!saisieOK);
 
-	for (int ligne = 1; ligne <= h; ++ligne) {
-		for (int espace = ligne; espace < h; ++espace) {
-			cout << " ";
+	for (int noLigne = 1; noLigne <= hauteur; ++noLigne) {
+		for (int i = 1; i <= hauteur - noLigne; ++i) {
+			cout << ' ';
 		}
-		for (int etoile = 1; etoile <= (2 * ligne - 1); etoile++) {
-			cout << "*";
+		for (int i = 1; i <= 2 * noLigne - 1; ++i) {
+			cout << MOTIF;
 		}
 		cout << endl;
 	}
