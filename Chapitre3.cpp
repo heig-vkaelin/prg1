@@ -274,16 +274,53 @@ int ex3_32() {
 }
 
 int ex3_33() {
-	int nbTentatives = 1000;
+	int nbTentatives = 1000000;
+	unsigned nbTentativesInitialeGagnees = 0;
+	unsigned nbTentativesInitialePerdues = 0;
+	unsigned nbTentativesChangeeGagnees = 0;
+	unsigned nbTentativesChangeePerdues = 0;
 	int porteMax = 3;
 	int porteMin = 1;
 
 	for (int i = 0; i < nbTentatives; ++i) {
-		int porteChoisie = rand() % (porteMax - porteMin + 1) + porteMin; // 0, 1 ou 2
-		int porteVoiture = rand() % (porteMax - porteMin + 1) + porteMin; // 0, 1 ou 2
+		int porteChoisie = rand() % (porteMax - porteMin + 1) + porteMin; // 1, 2 ou 3
+		int porteVoiture = rand() % (porteMax - porteMin + 1) + porteMin; // 1, 2 ou 3
 
-		cout << porteChoisie << " " << porteVoiture;
+		int porteChangement; // 1, 2 ou 3
+		do {
+			porteChangement = rand() % (porteMax - porteMin + 1) + porteMin;
+		} while (porteChangement != porteChoisie && porteChangement != porteVoiture);
+
+		// Changement de porte
+		if (rand() / (double) RAND_MAX > 0.5) {
+			if (porteChangement == porteVoiture) {
+				nbTentativesChangeeGagnees++;
+			} else {
+				nbTentativesChangeePerdues++;
+			}
+		} else { // Garder la porte initiale
+			if (porteChoisie == porteVoiture) {
+				nbTentativesInitialeGagnees++;
+			} else {
+				nbTentativesInitialePerdues++;
+			}
+		}
 	}
+
+	const double POURCENT_INITIAL = nbTentativesInitialeGagnees * 100.0 /
+											  (nbTentativesInitialeGagnees +
+												nbTentativesInitialePerdues);
+
+	const double POURCENT_CHANGEMENT = nbTentativesChangeeGagnees * 100.0 /
+												  (nbTentativesChangeeGagnees +
+													nbTentativesChangeePerdues);
+	cout << fixed << setprecision(2) << "Meilleure solution: " << endl;
+	if (POURCENT_INITIAL > POURCENT_CHANGEMENT) {
+		cout << "Ouvrir la porte choisie initialement: " << POURCENT_INITIAL;
+	} else {
+		cout << "Ouvrir la troisieme porte: " << POURCENT_CHANGEMENT;
+	}
+	cout << "% de chance de gagner la voiture.";
 
 	return EXIT_SUCCESS;
 }
