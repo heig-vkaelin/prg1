@@ -36,3 +36,34 @@ int ex4_4() {
 
 	return EXIT_SUCCESS;
 }
+
+void permutationCirculaireDroite(double &a, double &b, double &c) {
+	double tmp = a;
+	a = b;
+	b = c;
+	c = tmp;
+}
+
+int ex4_8() {
+	double a = 10, b = 2.5, c = 5;
+	cout << "a = " << a << " b = " << b << " c = " << c << endl;
+	permutationCirculaireDroite(a, b, c);
+	cout << "a = " << a << " b = " << b << " c = " << c << endl;
+	return EXIT_SUCCESS;
+}
+
+double retirerMontant(double &solde, double montant) {
+	double retrait = solde - montant >= 0 ? montant : solde;
+	solde -= retrait;
+	return retrait;
+}
+
+int ex4_9() {
+	double solde = 500;
+	double premierRetrait = retirerMontant(solde, 300);
+	cout << "1er retrait: " << premierRetrait << " solde: " << solde << endl;
+	double deuxiemeRetrait = retirerMontant(solde, 300);
+	cout << "2e retrait: " << deuxiemeRetrait << " solde: " << solde << endl;
+
+	return EXIT_SUCCESS;
+}
