@@ -223,8 +223,7 @@ int ex3_26() {
 }
 
 int ex3_29() {
-	int m, n;
-	int ppmc;
+	unsigned m, n;
 	bool saisieOK;
 
 	do {
@@ -238,12 +237,23 @@ int ex3_29() {
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	} while (!saisieOK);
 
-	int min = m < n ? m : n;
-	int max = m == min ? n : m;
-	ppmc = max;
+	unsigned min, max;
+	n < m ? (min = n, max = m) : (min = m, max = n);
+	unsigned long long ppmc = max;
 	while (ppmc % min != 0) {
 		ppmc += max;
 	}
+
+	// Autre variante:
+	// Pseudo code: ppmc(a, b) = a * b / pgcd(a, b)
+	unsigned pgcd;
+	while (min != 0) { // Méthode d'Euclide
+		pgcd = max;
+		max = min;
+		min = pgcd % min;
+	}
+	pgcd = max;
+	// ppmc = (unsigned long long) n * m / pgcd
 
 	cout << "PPMC entre " << m << " et " << n << " : " << ppmc << endl;
 
@@ -251,76 +261,52 @@ int ex3_29() {
 }
 
 int ex3_32() {
-	int nbTirs = 100000;
-	int nbTirsCercle = 0;
-	const int RAYON_CERCLE = 1;
+	const unsigned NB_TIRS = 100000;
+	unsigned nbTirsCercle = 0;
+	const unsigned RAYON_CERCLE = 1;
 
-	for (int tir = 0; tir < nbTirs; ++tir) {
-		double xCoord = rand() / (RAND_MAX / 2.0) - 1;
-		double yCoord = rand() / (RAND_MAX / 2.0) - 1;
+	srand((unsigned) time(NULL));
 
-		// Racine pas obligatoire ici car cercle de rayon 1 => 1 * 1 = 1
-		double distanceDuCentre = sqrt(xCoord * xCoord + yCoord * yCoord);
-		if (distanceDuCentre <= RAYON_CERCLE) {
+	for (unsigned tir = 0; tir < NB_TIRS; ++tir) {
+		double x = rand() / (RAND_MAX / 2.0) - 1;
+		double y = rand() / (RAND_MAX / 2.0) - 1;
+
+		if (x * x + y * y <= RAYON_CERCLE) {
 			nbTirsCercle++;
 		}
 	}
 
-	const double PI = RAYON_CERCLE * 2.0 * RAYON_CERCLE * 2 * nbTirsCercle / nbTirs;
-	cout << fixed << setprecision(2);
-	cout << "Valeur de PI calculee: " << PI << endl;
+	const double PI = RAYON_CERCLE * 2.0 * RAYON_CERCLE * 2 * nbTirsCercle / NB_TIRS;
+	cout << fixed << setprecision(2)
+		  << "Estimation de pi : " << PI << endl;
 
 	return EXIT_SUCCESS;
 }
 
 int ex3_33() {
-	int nbTentatives = 1000000;
-	unsigned nbTentativesInitialeGagnees = 0;
-	unsigned nbTentativesInitialePerdues = 0;
-	unsigned nbTentativesChangeeGagnees = 0;
-	unsigned nbTentativesChangeePerdues = 0;
-	int porteMax = 3;
-	int porteMin = 1;
+	const unsigned
+		NB_PORTES = 3,
+		NB_EXPERIENCES = 1'000'000;
 
-	for (int i = 0; i < nbTentatives; ++i) {
-		int porteChoisie = rand() % (porteMax - porteMin + 1) + porteMin; // 1, 2 ou 3
-		int porteVoiture = rand() % (porteMax - porteMin + 1) + porteMin; // 1, 2 ou 3
+	unsigned porteVoiture, porteJoueur;
 
-		int porteChangement; // 1, 2 ou 3
-		do {
-			porteChangement = rand() % (porteMax - porteMin + 1) + porteMin;
-		} while (porteChangement != porteChoisie && porteChangement != porteVoiture);
+	srand((unsigned) time(NULL));
 
-		// Changement de porte
-		if (rand() / (double) RAND_MAX > 0.5) {
-			if (porteChangement == porteVoiture) {
-				nbTentativesChangeeGagnees++;
-			} else {
-				nbTentativesChangeePerdues++;
-			}
-		} else { // Garder la porte initiale
-			if (porteChoisie == porteVoiture) {
-				nbTentativesInitialeGagnees++;
-			} else {
-				nbTentativesInitialePerdues++;
-			}
-		}
+	// On part du principe que le joueur maintient toujours son choix initial
+	unsigned compteur = 0;
+
+	for (unsigned i = 1; i < NB_EXPERIENCES; ++i) {
+		porteVoiture = (unsigned) rand() % NB_PORTES + 1;
+		porteJoueur = (unsigned) rand() % NB_PORTES + 1;
+
+		compteur += porteVoiture == porteJoueur;
 	}
 
-	const double POURCENT_INITIAL = nbTentativesInitialeGagnees * 100.0 /
-											  (nbTentativesInitialeGagnees +
-												nbTentativesInitialePerdues);
-
-	const double POURCENT_CHANGEMENT = nbTentativesChangeeGagnees * 100.0 /
-												  (nbTentativesChangeeGagnees +
-													nbTentativesChangeePerdues);
-	cout << fixed << setprecision(2) << "Meilleure solution: " << endl;
-	if (POURCENT_INITIAL > POURCENT_CHANGEMENT) {
-		cout << "Ouvrir la porte choisie initialement: " << POURCENT_INITIAL;
-	} else {
-		cout << "Ouvrir la troisieme porte: " << POURCENT_CHANGEMENT;
-	}
-	cout << "% de chance de gagner la voiture.";
+	cout << fixed << setprecision(3)
+		  << "Probabilite de succes si maintien du choix initial: "
+		  << (double) compteur / NB_EXPERIENCES << endl
+		  << "Probabilite de succes si changement du choix initial :"
+		  << (double) (NB_EXPERIENCES - compteur) / NB_EXPERIENCES << endl;
 
 	return EXIT_SUCCESS;
 }
