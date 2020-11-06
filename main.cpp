@@ -1,4 +1,4 @@
-#include "exercices.h"
+#include "exercises.h"
 
 int main() {
 	// return ex1_2();
