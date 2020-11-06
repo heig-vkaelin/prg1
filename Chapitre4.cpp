@@ -67,3 +67,15 @@ int ex4_9() {
 
 	return EXIT_SUCCESS;
 }
+
+void afficher() {
+	static int n;
+	cout << "Appel numero " << ++n << endl;
+}
+
+int ex4_13() {
+	for (int i = 0; i < 3; ++i) {
+		afficher();
+	}
+	return EXIT_SUCCESS;
+}

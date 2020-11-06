@@ -30,5 +30,6 @@ int ex4_3();
 int ex4_4();
 int ex4_8();
 int ex4_9();
+int ex4_13();
 
 #endif // PRG1_EXERCICES_H
