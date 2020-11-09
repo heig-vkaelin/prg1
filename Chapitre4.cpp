@@ -12,10 +12,13 @@ double volumePyramide(double longueur, double largeur, double hauteur) {
 	return longueur * largeur * hauteur / 3;
 }
 
+void afficherTexteEtValeur(const string &texte, double valeur, int precision) {
+	cout << texte << fixed << setprecision(precision) << valeur << endl;
+}
+
 int ex4_3() {
-	cout << fixed << setprecision(1);
-	cout << volumePyramide(10, 3.5, 12) << endl;
-	cout << volumePyramide(3.6, 2.4, 2.7) << endl;
+	afficherTexteEtValeur("volume pyramide 1 = ", volumePyramide(10, 3.5, 12), 1);
+	afficherTexteEtValeur("volume pyramide 2 = ", volumePyramide(3.6, 2.4, 2.7), 1);
 
 	return EXIT_SUCCESS;
 }
@@ -38,44 +41,53 @@ int ex4_4() {
 }
 
 void permutationCirculaireDroite(double &a, double &b, double &c) {
-	double tmp = a;
-	a = b;
-	b = c;
-	c = tmp;
+	double tmp = c;
+	c = b;
+	b = a;
+	a = tmp;
+}
+
+void afficherEx4_8(double a, double b, double c) {
+	cout << "a = " << a << " b = " << b << " c = " << c << endl;
 }
 
 int ex4_8() {
-	double a = 10, b = 2.5, c = 5;
-	cout << "a = " << a << " b = " << b << " c = " << c << endl;
-	permutationCirculaireDroite(a, b, c);
-	cout << "a = " << a << " b = " << b << " c = " << c << endl;
+	double a = 1, b = 2, c = 3;
+	for (int i = 1; i <= 3; ++i) {
+		permutationCirculaireDroite(a, b, c);
+		afficherEx4_8(a, b, c);
+	}
 	return EXIT_SUCCESS;
 }
 
-double retirerMontant(double &solde, double montant) {
-	double retrait = solde - montant >= 0 ? montant : solde;
-	solde -= retrait;
-	return retrait;
+double retrait(double montant, double &solde) {
+	double retraitEffectif = solde > montant ? montant : solde;
+	solde -= retraitEffectif;
+	return retraitEffectif;
 }
 
 int ex4_9() {
-	double solde = 500;
-	double premierRetrait = retirerMontant(solde, 300);
-	cout << "1er retrait: " << premierRetrait << " solde: " << solde << endl;
-	double deuxiemeRetrait = retirerMontant(solde, 300);
-	cout << "2e retrait: " << deuxiemeRetrait << " solde: " << solde << endl;
+	double solde = 500, retraitEffectif;
+
+	retraitEffectif = retrait(300, solde);
+	afficherTexteEtValeur("Montant retrait effectif = ", retraitEffectif, 1);
+	afficherTexteEtValeur("Solde courant            = ", solde, 1);
+
+	retraitEffectif = retrait(300, solde);
+	afficherTexteEtValeur("Montant retrait effectif = ", retraitEffectif, 1);
+	afficherTexteEtValeur("Solde courant            = ", solde, 1);
 
 	return EXIT_SUCCESS;
 }
 
-void afficher() {
+void afficherEx4_13() {
 	static int n;
 	cout << "Appel numero " << ++n << endl;
 }
 
 int ex4_13() {
 	for (int i = 0; i < 3; ++i) {
-		afficher();
+		afficherEx4_13();
 	}
 	return EXIT_SUCCESS;
 }
