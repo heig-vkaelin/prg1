@@ -1,5 +1,9 @@
 #include "exercises.h"
 
+#include <iostream>
+
+using namespace std;
+
 int main() {
 	// return ex1_2();
 	// return ex1_3();
@@ -26,5 +30,8 @@ int main() {
 	// return ex4_4();
 	// return ex4_8();
 	// return ex4_9();
-	return ex4_13();
+	// return ex4_13();
+
+	// return ex5_2();
+	return ex5_4();
 }
