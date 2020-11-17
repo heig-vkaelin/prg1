@@ -45,44 +45,50 @@ int ex5_4() {
 	return EXIT_SUCCESS;
 }
 
-double somme(const double tab[], unsigned taille) {
+double moyenne(const double notes[], unsigned nbNotes) {
 	double somme = 0;
-	for (unsigned i = 0; i < taille; ++i) {
-		somme += tab[i];
+	for (unsigned i = 0; i < nbNotes; ++i) {
+		somme += notes[i];
 	}
-	return somme;
+	return somme / nbNotes;
 }
 
-double moyenne(const double notes[], unsigned taille) {
-	return somme(notes, taille) / taille;
-}
+unsigned lireNotes(double notes[], unsigned nbNotesMax) {
+	cout << "Entrez la liste de vos notes (" << nbNotesMax
+		  << " notes max), 0 pour quitter :" << endl;
 
-unsigned lireNotes(double notes[], unsigned tailleMax) {
-	unsigned i = 0;
+	// 1ère variante:
+	//	double noteSaisie;
+	//	unsigned nbNotesSaisies = 0;
+	//	do {
+	//		cin >> noteSaisie;
+	//		if (noteSaisie != 0) {
+	//			notes[nbNotesSaisies++] = noteSaisie;
+	//		}
+	//	} while (noteSaisie != 0 && nbNotesSaisies < nbNotesMax);
+	//	return nbNotesSaisies;
 
-	double noteTemp;
-	do {
-		cin >> noteTemp;
-		if (noteTemp != 0) {
-			notes[i] = noteTemp;
-			i++;
+	// Autre variante avec boucle for au lieu de do while:
+	for (unsigned i = 0; i < nbNotesMax; ++i) {
+		cin >> notes[i];
+		if (notes[i] == 0) {
+			return i;
 		}
-	} while (noteTemp != 0 && i < tailleMax);
-
-	return i;
+	}
+	return nbNotesMax;
 }
 
 int ex5_5() {
 	const unsigned NB_MAX_NOTES = 10;
 	double notes[NB_MAX_NOTES];
 
-	cout << "Entrez la liste de vos notes (10 notes max), 0 pour quitter :" << endl;
-	unsigned nbNotes = lireNotes(notes, NB_MAX_NOTES);
+	unsigned nbNotesSaisies = lireNotes(notes, NB_MAX_NOTES);
 
-	cout << fixed << setprecision(2) << endl;
-
-	if (nbNotes) {
-		cout << "La moyenne des notes saisies = " << moyenne(notes, nbNotes) << endl;
+	cout << endl;
+	if (nbNotesSaisies) {
+		cout << fixed << setprecision(2)
+			  << "La moyenne des notes saisies = " << moyenne(notes, nbNotesSaisies)
+			  << endl;
 	} else {
 		cout << "Moyenne non calculable car aucune note saisie !" << endl;
 	}
