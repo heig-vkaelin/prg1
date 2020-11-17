@@ -11,37 +11,36 @@ using namespace std;
 int ex5_2() {
 	// Tableau de 5 int
 	int tab1[5];
-	int tab2[5] = {};
 
-	// Tableau de 5 int, 1er élément =1, 2e = 2
-	int tab3[5] = {1, 2};
-	int tab4[5];
-	tab4[0] = 1;
-	tab4[1] = 2;
+	// Tableau de 5 int, 1er élément = 1, 2e = 2
+	int tab2[5] = {1, 2};
+	int tab3[] = {1, 2};
 
 	// Tableau de 5 bool, 1er = true, reste = false
-	bool tab5[5] = {true};
+	bool tab4[5] = {true, false, false, false, false};
+	bool tab5[] = {true, false, false, false, false};
+	bool tab6[5] = {true};
 
 	return EXIT_SUCCESS;
 }
 
-void afficherEx5_4(const int tab[], unsigned int taille) {
+void afficher(const int tab[], unsigned taille) {
 	cout << "[";
 	for (unsigned i = 0; i < taille; ++i) {
-		cout << tab[i];
-		if (i != taille - 1) {
+		if (i > 0) {
 			cout << ", ";
 		}
+		cout << tab[i];
 	}
 	cout << "]" << endl;
 }
 
 int ex5_4() {
-	afficherEx5_4({}, 0);
+	afficher({}, 0);
 	int t1[] = {1};
-	afficherEx5_4(t1, 1);
+	afficher(t1, 1);
 	int t2[] = {1, 2};
-	afficherEx5_4(t2, 2);
+	afficher(t2, 2);
 
 	return EXIT_SUCCESS;
 }
@@ -107,21 +106,21 @@ int ex5_6() {
 	int tab3[] = {1, 2};
 	int tab4[] = {23};
 
-	afficherEx5_4(tab1, 4);
+	afficher(tab1, 4);
 	permuterExtremitesTableau(tab1, 4);
-	afficherEx5_4(tab1, 4);
+	afficher(tab1, 4);
 
-	afficherEx5_4(tab2, 3);
+	afficher(tab2, 3);
 	permuterExtremitesTableau(tab2, 3);
-	afficherEx5_4(tab2, 3);
+	afficher(tab2, 3);
 
-	afficherEx5_4(tab3, 2);
+	afficher(tab3, 2);
 	permuterExtremitesTableau(tab3, 2);
-	afficherEx5_4(tab3, 2);
+	afficher(tab3, 2);
 
-	afficherEx5_4(tab4, 1);
+	afficher(tab4, 1);
 	permuterExtremitesTableau(tab4, 1);
-	afficherEx5_4(tab4, 1);
+	afficher(tab4, 1);
 
 	return EXIT_SUCCESS;
 }
@@ -138,9 +137,9 @@ int ex5_7() {
 	const int NOMBRE_CHOISI = 42;
 	int tab1[] = {1, 2, 3, 4, 5, 6};
 
-	afficherEx5_4(tab1, 6);
+	afficher(tab1, 6);
 	remplacerValeursPaires(tab1, 6, NOMBRE_CHOISI);
-	afficherEx5_4(tab1, 6);
+	afficher(tab1, 6);
 
 	return EXIT_SUCCESS;
 }
@@ -156,9 +155,9 @@ void decalageDroite(int tab[], unsigned taille) {
 int ex5_8() {
 	int tab1[] = {1, 2, 3, 4, 5, 6};
 
-	afficherEx5_4(tab1, 6);
+	afficher(tab1, 6);
 	decalageDroite(tab1, 6);
-	afficherEx5_4(tab1, 6);
+	afficher(tab1, 6);
 	return EXIT_SUCCESS;
 }
 
@@ -177,13 +176,13 @@ int ex5_9() {
 	unsigned tailleTab2 = 5;
 	int tab2[] = {1, 2, 3, 4, 5};
 
-	afficherEx5_4(tab1, tailleTab1);
+	afficher(tab1, tailleTab1);
 	supprimerCentral(tab1, tailleTab1);
-	afficherEx5_4(tab1, tailleTab1);
+	afficher(tab1, tailleTab1);
 
-	afficherEx5_4(tab2, tailleTab2);
+	afficher(tab2, tailleTab2);
 	supprimerCentral(tab2, tailleTab2);
-	afficherEx5_4(tab2, tailleTab2);
+	afficher(tab2, tailleTab2);
 
 	return EXIT_SUCCESS;
 }
