@@ -40,5 +40,6 @@ int ex5_7();
 int ex5_8();
 int ex5_9();
 int ex5_11();
+int ex5_12();
 
 #endif // PRG1_EXERCICES_H

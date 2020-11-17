@@ -199,11 +199,33 @@ int sommeAlternee(const int tab[], unsigned taille) {
 int ex5_11() {
 	int tab1[] = {1, 2, 3, 4};
 
-	afficherEx5_4(tab1, 4);
+	afficher(tab1, 4);
 	cout << "Somme: " << sommeAlternee(tab1, 4) << endl;
 
-	afficherEx5_4({}, 0);
+	afficher({}, 0);
 	cout << "Somme: " << sommeAlternee({}, 0) << endl;
+
+	return EXIT_SUCCESS;
+}
+
+void supprimerOccurrences(int tab[], unsigned &taille, int valeur) {
+	unsigned decalage = 0;
+	for (unsigned i = 0; i < taille; ++i) {
+		tab[i - decalage] = tab[i];
+		if (tab[i] == valeur) {
+			decalage++;
+		}
+	}
+	taille -= decalage;
+}
+
+int ex5_12() {
+	unsigned tailleTab1 = 10;
+	int tab1[] = {1, 2, 3, 4, 5, 2, 6, 7, 2, 8};
+
+	afficher(tab1, tailleTab1);
+	supprimerOccurrences(tab1, tailleTab1, 2);
+	afficher(tab1, tailleTab1);
 
 	return EXIT_SUCCESS;
 }
