@@ -234,3 +234,83 @@ int ex5_12() {
 
 	return EXIT_SUCCESS;
 }
+
+void supprimerDoublons(int tab[], unsigned &taille) {
+	for (unsigned i = 0; i < taille; i++) {
+		for (unsigned j = 0; j < i; j++) {
+			if (tab[i] == tab[j]) {
+				taille--;
+				for (unsigned k = i; k < taille; k++) {
+					tab[k] = tab[k + 1];
+				}
+				i--;
+			}
+		}
+	}
+}
+
+int ex5_13() {
+	unsigned tailleTab1 = 7;
+	int tab1[] = {1, 2, 4, 2, 1, 1, 3};
+
+	afficher(tab1, tailleTab1);
+	supprimerDoublons(tab1, tailleTab1);
+	afficher(tab1, tailleTab1);
+
+	return EXIT_SUCCESS;
+}
+
+//void copierTableau(const int tabSource[], int tabDest[], unsigned taille) {
+//	for (unsigned i = 0; i < taille; i++) {
+//		tabDest[i] = tabSource[i];
+//	}
+//}
+
+int chercher(const int tab[], unsigned taille, int val, unsigned pos = 0) {
+	for (; pos < taille; ++pos) {
+		if (tab[pos] == val) {
+			return (int) pos;
+		}
+	}
+	return -1;
+}
+
+bool tableauxEgaux(const int tab1[], const int tab2[], unsigned tailleTab1,
+						 unsigned tailleTab2) {
+	unsigned tailleMax = tailleTab1 < tailleTab2 ? tailleTab2 : tailleTab1;
+
+	for (unsigned i = 0; i < tailleMax; ++i) {
+		bool elementDansTab1 =
+			i > tailleTab1 - 1 || chercher(tab2, tailleTab2, tab1[i]) != -1;
+		bool elementDansTab2 =
+			i > tailleTab2 - 1 || chercher(tab1, tailleTab1, tab2[i]) != -1;
+
+		if (!elementDansTab1 || !elementDansTab2) {
+			return false;
+		}
+	}
+	return true;
+}
+
+
+int ex5_14() {
+	int tab1[] = {3, 3, 1, 1, 2, 1};
+	int tab2[] = {1, 2, 3};
+
+	int tab3[] = {3, 3, 7, 0, 5, 2};
+	int tab4[] = {3, 0, 5};
+
+	int tab5[] = {5, 0, 3};
+	int tab6[] = {3, 0, 0, 3, 5, 5, 3};
+
+	int tab7[] = {1, 2, 3, 4, 5};
+	int tab8[] = {1, 3, 2, 7};
+
+	cout << boolalpha
+		  << tableauxEgaux(tab1, tab2, 6, 3) << endl
+		  << tableauxEgaux(tab3, tab4, 6, 3) << endl
+		  << tableauxEgaux(tab5, tab6, 3, 7) << endl
+		  << tableauxEgaux(tab7, tab8, 5, 4) << endl;
+
+	return EXIT_SUCCESS;
+}

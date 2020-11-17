@@ -40,5 +40,7 @@ int main() {
 	// return ex5_8();
 	// return ex5_9();
 	// return ex5_11();
-	return ex5_12();
+	// return ex5_12();
+	// return ex5_13();
+	return ex5_14();
 }
