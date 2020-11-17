@@ -266,13 +266,13 @@ int ex5_13() {
 //	}
 //}
 
-int chercher(const int tab[], unsigned taille, int val, unsigned pos = 0) {
+unsigned chercher(const int tab[], unsigned taille, int val, unsigned pos = 0) {
 	for (; pos < taille; ++pos) {
 		if (tab[pos] == val) {
-			return (int) pos;
+			return pos;
 		}
 	}
-	return -1;
+	return taille;
 }
 
 bool tableauxEgaux(const int tab1[], const int tab2[], unsigned tailleTab1,
@@ -281,9 +281,9 @@ bool tableauxEgaux(const int tab1[], const int tab2[], unsigned tailleTab1,
 
 	for (unsigned i = 0; i < tailleMax; ++i) {
 		bool elementDansTab1 =
-			i > tailleTab1 - 1 || chercher(tab2, tailleTab2, tab1[i]) != -1;
+			i > tailleTab1 - 1 || chercher(tab2, tailleTab2, tab1[i]) != tailleTab2;
 		bool elementDansTab2 =
-			i > tailleTab2 - 1 || chercher(tab1, tailleTab1, tab2[i]) != -1;
+			i > tailleTab2 - 1 || chercher(tab1, tailleTab1, tab2[i]) != tailleTab1;
 
 		if (!elementDansTab1 || !elementDansTab2) {
 			return false;
