@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
+#include <vector>
 
 using namespace std;
 
@@ -311,6 +312,87 @@ int ex5_14() {
 		  << tableauxEgaux(tab3, tab4, 6, 3) << endl
 		  << tableauxEgaux(tab5, tab6, 3, 7) << endl
 		  << tableauxEgaux(tab7, tab8, 5, 4) << endl;
+
+	return EXIT_SUCCESS;
+}
+
+void afficherVector(const vector<int> &vecteur) {
+	cout << "[";
+	for (size_t i = 0; i < vecteur.size(); ++i) {
+		if (i > 0) {
+			cout << ", ";
+		}
+		cout << vecteur.at(i);
+	}
+	cout << "]" << endl;
+}
+
+bool tousImpairs(const vector<int> &vecteur) {
+	for (int val : vecteur) {
+		if (val % 2 == 0) {
+			return false;
+		}
+	}
+	return true;
+}
+
+int ex5_15() {
+	vector<int> v1 = {1, 2, 3, 4, 5};
+	vector<int> v2 = {1, 3, 5, 7};
+	vector<int> v3 = {};
+
+	afficherVector(v1);
+	cout << boolalpha << tousImpairs(v1) << endl;
+
+	afficherVector(v2);
+	cout << boolalpha << tousImpairs(v2) << endl;
+
+	afficherVector(v3);
+	cout << boolalpha << tousImpairs(v3) << endl;
+
+	return EXIT_SUCCESS;
+}
+
+vector<int> append(vector<int> v1, const vector<int> &v2) {
+	v1.insert(v1.end(), v2.begin(), v2.end());
+	return v1;
+}
+
+int ex5_16() {
+	vector<int> v1 = {1, 3};
+	vector<int> v2 = {2, 4, 5};
+
+	afficherVector(v1);
+	afficherVector(v2);
+	auto v3 = append(v1, v2);
+	afficherVector(v3);
+
+	return EXIT_SUCCESS;
+}
+
+vector<int> merge(const vector<int> &v1, const vector<int> &v2) {
+	vector<int> resultat;
+	size_t tailleMax = v1.size() > v2.size() ? v1.size() : v2.size();
+	for (size_t i = 0; i < tailleMax; ++i) {
+		if (i < v1.size()) {
+			resultat.push_back(v1[i]);
+		}
+		if (i < v2.size()) {
+			resultat.push_back(v2[i]);
+		}
+	}
+	return resultat;
+}
+
+int ex5_17() {
+	vector<int> v1 = {1, 3, 5, 7};
+	vector<int> v2 = {2, 4};
+
+	afficherVector(v1);
+	afficherVector(v2);
+
+	auto resultat = merge(v1, v2);
+	afficherVector(resultat);
 
 	return EXIT_SUCCESS;
 }
