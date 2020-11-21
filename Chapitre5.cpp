@@ -327,7 +327,7 @@ void afficherVector(const vector<int> &vecteur) {
 	cout << "]" << endl;
 }
 
-template<class T>
+template<typename T>
 void afficher(const T &container) {
 	cout << "[";
 	for (auto i = begin(container); i != end(container); ++i) {
