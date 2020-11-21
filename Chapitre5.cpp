@@ -25,7 +25,7 @@ int ex5_2() {
 	return EXIT_SUCCESS;
 }
 
-void afficher(const int tab[], unsigned taille) {
+void afficherTableau(const int tab[], unsigned taille) {
 	cout << "[";
 	for (unsigned i = 0; i < taille; ++i) {
 		if (i > 0) {
@@ -37,11 +37,11 @@ void afficher(const int tab[], unsigned taille) {
 }
 
 int ex5_4() {
-	afficher({}, 0);
+	afficherTableau({}, 0);
 	int t1[] = {1};
-	afficher(t1, 1);
+	afficherTableau(t1, 1);
 	int t2[] = {1, 2};
-	afficher(t2, 2);
+	afficherTableau(t2, 2);
 
 	return EXIT_SUCCESS;
 }
@@ -113,21 +113,21 @@ int ex5_6() {
 	int tab3[] = {1, 2};
 	int tab4[] = {23};
 
-	afficher(tab1, 4);
+	afficherTableau(tab1, 4);
 	permuterExtremitesTableau(tab1, 4);
-	afficher(tab1, 4);
+	afficherTableau(tab1, 4);
 
-	afficher(tab2, 3);
+	afficherTableau(tab2, 3);
 	permuterExtremitesTableau(tab2, 3);
-	afficher(tab2, 3);
+	afficherTableau(tab2, 3);
 
-	afficher(tab3, 2);
+	afficherTableau(tab3, 2);
 	permuterExtremitesTableau(tab3, 2);
-	afficher(tab3, 2);
+	afficherTableau(tab3, 2);
 
-	afficher(tab4, 1);
+	afficherTableau(tab4, 1);
 	permuterExtremitesTableau(tab4, 1);
-	afficher(tab4, 1);
+	afficherTableau(tab4, 1);
 
 	return EXIT_SUCCESS;
 }
@@ -144,9 +144,9 @@ int ex5_7() {
 	const int NOMBRE_CHOISI = 42;
 	int tab1[] = {1, 2, 3, 4, 5, 6};
 
-	afficher(tab1, 6);
+	afficherTableau(tab1, 6);
 	remplacerValeursPaires(tab1, 6, NOMBRE_CHOISI);
-	afficher(tab1, 6);
+	afficherTableau(tab1, 6);
 
 	return EXIT_SUCCESS;
 }
@@ -162,9 +162,9 @@ void decalageDroite(int tab[], unsigned taille) {
 int ex5_8() {
 	int tab1[] = {1, 2, 3, 4, 5, 6};
 
-	afficher(tab1, 6);
+	afficherTableau(tab1, 6);
 	decalageDroite(tab1, 6);
-	afficher(tab1, 6);
+	afficherTableau(tab1, 6);
 	return EXIT_SUCCESS;
 }
 
@@ -183,13 +183,13 @@ int ex5_9() {
 	unsigned tailleTab2 = 5;
 	int tab2[] = {1, 2, 3, 4, 5};
 
-	afficher(tab1, tailleTab1);
+	afficherTableau(tab1, tailleTab1);
 	supprimerCentral(tab1, tailleTab1);
-	afficher(tab1, tailleTab1);
+	afficherTableau(tab1, tailleTab1);
 
-	afficher(tab2, tailleTab2);
+	afficherTableau(tab2, tailleTab2);
 	supprimerCentral(tab2, tailleTab2);
-	afficher(tab2, tailleTab2);
+	afficherTableau(tab2, tailleTab2);
 
 	return EXIT_SUCCESS;
 }
@@ -205,10 +205,10 @@ int sommeAlternee(const int tab[], unsigned taille) {
 int ex5_11() {
 	int tab1[] = {1, 2, 3, 4};
 
-	afficher(tab1, 4);
+	afficherTableau(tab1, 4);
 	cout << "Somme: " << sommeAlternee(tab1, 4) << endl;
 
-	afficher({}, 0);
+	afficherTableau({}, 0);
 	cout << "Somme: " << sommeAlternee({}, 0) << endl;
 
 	return EXIT_SUCCESS;
@@ -229,9 +229,9 @@ int ex5_12() {
 	unsigned tailleTab1 = 10;
 	int tab1[] = {1, 2, 3, 4, 5, 2, 6, 7, 2, 8};
 
-	afficher(tab1, tailleTab1);
+	afficherTableau(tab1, tailleTab1);
 	supprimerOccurrences(tab1, tailleTab1, 2);
-	afficher(tab1, tailleTab1);
+	afficherTableau(tab1, tailleTab1);
 
 	return EXIT_SUCCESS;
 }
@@ -254,9 +254,9 @@ int ex5_13() {
 	unsigned tailleTab1 = 7;
 	int tab1[] = {1, 2, 4, 2, 1, 1, 3};
 
-	afficher(tab1, tailleTab1);
+	afficherTableau(tab1, tailleTab1);
 	supprimerDoublons(tab1, tailleTab1);
-	afficher(tab1, tailleTab1);
+	afficherTableau(tab1, tailleTab1);
 
 	return EXIT_SUCCESS;
 }
@@ -327,6 +327,18 @@ void afficherVector(const vector<int> &vecteur) {
 	cout << "]" << endl;
 }
 
+template<class T>
+void afficher(const T &container) {
+	cout << "[";
+	for (auto i = begin(container); i != end(container); ++i) {
+		cout << *i;
+		if (i != end(container) - 1) {
+			cout << ", ";
+		}
+	}
+	cout << "]" << endl;
+}
+
 bool tousImpairs(const vector<int> &vecteur) {
 	for (int val : vecteur) {
 		if (val % 2 == 0) {
@@ -388,11 +400,11 @@ int ex5_17() {
 	vector<int> v1 = {1, 3, 5, 7};
 	vector<int> v2 = {2, 4};
 
-	afficherVector(v1);
-	afficherVector(v2);
+	afficher(v1);
+	afficher(v2);
 
 	auto resultat = merge(v1, v2);
-	afficherVector(resultat);
+	afficher(resultat);
 
 	return EXIT_SUCCESS;
 }
