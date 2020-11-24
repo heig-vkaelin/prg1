@@ -6,6 +6,7 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <array>
 
 using namespace std;
 
@@ -479,6 +480,26 @@ void afficherEx5_19(const vector<string> &matrice) {
 int ex5_19() {
 	vector<string> matrice = creerMatriceAlphabet();
 	afficherEx5_19(matrice);
+
+	return EXIT_SUCCESS;
+}
+
+void afficherExtremites(array<int, 3> tab) {
+	cout << "Premier element: " << *tab.begin() << endl;
+	cout << "Dernier element: " << *(tab.end() - 1) << endl;
+}
+
+int ex5_21() {
+	// 1)
+	array<int, 3> tab1 = {1, 2, 3};
+	// 2)
+	afficher(tab1);
+	// 3)
+	afficherExtremites(tab1);
+	// 4)
+	tab1.fill(0);
+	// 5)
+	afficher(tab1);
 
 	return EXIT_SUCCESS;
 }
