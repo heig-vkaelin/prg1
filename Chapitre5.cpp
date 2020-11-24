@@ -408,3 +408,49 @@ int ex5_17() {
 
 	return EXIT_SUCCESS;
 }
+
+void afficher2DVector(const vector<vector<int>> &m) {
+	cout << "[";
+	for (size_t i = 0; i < m.size(); ++i) {
+		cout << "(";
+		for (size_t j = 0; j < m[i].size(); ++j) {
+			cout << m[i][j] << (j < m[i].size() - 1 ? ", " : "");
+		}
+		cout << (i < m.size() - 1 ? "), " : ")");
+	}
+	cout << "]";
+}
+
+typedef vector<int> Ligne;
+typedef vector<Ligne> Matrice;
+
+void diagonalesMatrice(const Matrice &m, int &diagGauche, int &diagDroite) {
+	const size_t TAILLE_LIGNE = m[0].size();
+
+	for (size_t i = 0; i < m.size(); ++i) {
+		diagGauche += m[i][i];
+		diagDroite += m[i][TAILLE_LIGNE - i - 1];
+	}
+}
+
+void afficherEx5_18(const Matrice &m, int diagGauche, int diagDroite) {
+	cout << "La somme des elements de la diagonale gauche de ";
+	afficher2DVector(m);
+	cout << " vaut " << diagGauche << endl;
+	cout << "La somme des elements de la diagonale droite de ";
+	afficher2DVector(m);
+	cout << " vaut " << diagDroite << endl;
+}
+
+int ex5_18() {
+	Matrice m1 = {{1, 0, 1},
+					  {0, 1, 0},
+					  {1, 1, 0}};
+	int diagonaleGauche = 0;
+	int diagonaleDroite = 0;
+
+	diagonalesMatrice(m1, diagonaleGauche, diagonaleDroite);
+	afficherEx5_18(m1, diagonaleGauche, diagonaleDroite);
+
+	return EXIT_SUCCESS;
+}
