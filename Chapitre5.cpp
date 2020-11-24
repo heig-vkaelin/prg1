@@ -454,3 +454,31 @@ int ex5_18() {
 
 	return EXIT_SUCCESS;
 }
+
+vector<string> creerMatriceAlphabet() {
+	const unsigned NB_LETTRES_ALPHABET = 26;
+	vector<string> matrice;
+
+	for (unsigned i = NB_LETTRES_ALPHABET; i > 0; --i) {
+		string ligne;
+		for (unsigned j = 0; j < i; ++j) {
+			ligne += 'a' + (char) j;
+		}
+		matrice.push_back(ligne);
+	}
+
+	return matrice;
+}
+
+void afficherEx5_19(const vector<string> &matrice) {
+	for (const string &ligne : matrice) {
+		cout << ligne << endl;
+	}
+}
+
+int ex5_19() {
+	vector<string> matrice = creerMatriceAlphabet();
+	afficherEx5_19(matrice);
+
+	return EXIT_SUCCESS;
+}
