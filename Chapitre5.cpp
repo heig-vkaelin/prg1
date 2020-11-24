@@ -26,9 +26,9 @@ int ex5_2() {
 	return EXIT_SUCCESS;
 }
 
-void afficherTableau(const int tab[], unsigned taille) {
+void afficherTableau(const int tab[], size_t taille) {
 	cout << "[";
-	for (unsigned i = 0; i < taille; ++i) {
+	for (size_t i = 0; i < taille; ++i) {
 		if (i > 0) {
 			cout << ", ";
 		}
@@ -152,9 +152,11 @@ int ex5_7() {
 	return EXIT_SUCCESS;
 }
 
-void decalageDroite(int tab[], unsigned taille) {
+void decalageDroite(int tab[], size_t taille) {
+	if (taille < 1) { return; }
+
 	int tmp = tab[taille - 1];
-	for (unsigned i = taille - 1; i > 0; --i) {
+	for (size_t i = taille - 1; i > 0; --i) {
 		tab[i] = tab[i - 1];
 	}
 	tab[0] = tmp;
@@ -169,19 +171,20 @@ int ex5_8() {
 	return EXIT_SUCCESS;
 }
 
-void supprimerCentral(int tab[], unsigned &taille) {
-	unsigned decalage = taille % 2 == 0 ? 2 : 1;
-	for (unsigned i = taille / 2 + 1; i < taille; ++i) {
+void supprimerCentral(int tab[], size_t &taille) {
+	if (taille <= 0) { return; }
+	size_t decalage = taille % 2 ? 1 : 2;
+	for (size_t i = taille / 2 + 1; i < taille; ++i) {
 		tab[i - decalage] = tab[i];
 	}
 	taille -= decalage;
 }
 
 int ex5_9() {
-	unsigned tailleTab1 = 6;
+	size_t tailleTab1 = 6;
 	int tab1[] = {1, 2, 3, 4, 5, 6};
 
-	unsigned tailleTab2 = 5;
+	size_t tailleTab2 = 5;
 	int tab2[] = {1, 2, 3, 4, 5};
 
 	afficherTableau(tab1, tailleTab1);
