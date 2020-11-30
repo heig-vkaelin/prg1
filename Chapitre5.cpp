@@ -388,15 +388,21 @@ int ex5_16() {
 
 vector<int> merge(const vector<int> &v1, const vector<int> &v2) {
 	vector<int> resultat;
-	size_t tailleMax = v1.size() > v2.size() ? v1.size() : v2.size();
-	for (size_t i = 0; i < tailleMax; ++i) {
-		if (i < v1.size()) {
-			resultat.push_back(v1[i]);
-		}
-		if (i < v2.size()) {
-			resultat.push_back(v2[i]);
-		}
+	resultat.reserve(v1.size() + v2.size());
+
+	auto i1 = v1.begin();
+	auto i2 = v2.begin();
+	auto end = i1 + (long long) min(v1.size(), v2.size());
+
+	while (i1 != end) {
+		resultat.push_back(*i1);
+		++i1;
+		resultat.push_back(*i2);
+		++i2;
 	}
+	resultat.insert(resultat.end(), i1, v1.end());
+	resultat.insert(resultat.end(), i2, v2.end());
+
 	return resultat;
 }
 
