@@ -419,83 +419,89 @@ int ex5_17() {
 	return EXIT_SUCCESS;
 }
 
-void afficher2DVector(const vector<vector<int>> &m) {
-	cout << "[";
-	for (size_t i = 0; i < m.size(); ++i) {
-		cout << "(";
-		for (size_t j = 0; j < m[i].size(); ++j) {
-			cout << m[i][j] << (j < m[i].size() - 1 ? ", " : "");
+using Matrice = vector<vector<int>>;
+
+template<typename T>
+string to_string(const vector<vector<T>> &matrice) {
+	string resultat = "[";
+	for (size_t i = 0; i < matrice.size(); ++i) {
+		if (i > 0) resultat += ", ";
+		resultat += "(";
+		for (size_t j = 0; j < matrice[i].size(); ++j) {
+			if (j > 0) resultat += ", ";
+			resultat += to_string(matrice[i][j]);
 		}
-		cout << (i < m.size() - 1 ? "), " : ")");
+		resultat += ")";
 	}
-	cout << "]";
+	resultat += "]";
+
+	return resultat;
 }
 
-typedef vector<int> Ligne;
-typedef vector<Ligne> Matrice;
-
 void diagonalesMatrice(const Matrice &m, int &diagGauche, int &diagDroite) {
-	const size_t TAILLE_LIGNE = m[0].size();
+	const size_t TAILLE = m.size();
+	diagGauche = 0, diagDroite = 0;
 
 	for (size_t i = 0; i < m.size(); ++i) {
 		diagGauche += m[i][i];
-		diagDroite += m[i][TAILLE_LIGNE - i - 1];
+		diagDroite += m[i][TAILLE - i - 1];
 	}
 }
 
 void afficherEx5_18(const Matrice &m, int diagGauche, int diagDroite) {
-	cout << "La somme des elements de la diagonale gauche de ";
-	afficher2DVector(m);
-	cout << " vaut " << diagGauche << endl;
-	cout << "La somme des elements de la diagonale droite de ";
-	afficher2DVector(m);
-	cout << " vaut " << diagDroite << endl;
+	cout << "La somme des elements de la diagonale gauche de "
+		  << to_string(m) << " vaut " << diagGauche << endl;
+	cout << "La somme des elements de la diagonale droite de "
+		  << to_string(m) << " vaut " << diagDroite << endl;
 }
 
 int ex5_18() {
-	Matrice m1 = {{1, 0, 1},
-					  {0, 1, 0},
-					  {1, 1, 0}};
-	int diagonaleGauche = 0;
-	int diagonaleDroite = 0;
+	const Matrice MATRICE = {{1, 0, 1},
+									 {0, 1, 0},
+									 {1, 1, 0}};
+	int sommeDiagGauche = 0;
+	int sommeDiagDroite = 0;
 
-	diagonalesMatrice(m1, diagonaleGauche, diagonaleDroite);
-	afficherEx5_18(m1, diagonaleGauche, diagonaleDroite);
+	diagonalesMatrice(MATRICE, sommeDiagGauche, sommeDiagDroite);
+	afficherEx5_18(MATRICE, sommeDiagGauche, sommeDiagDroite);
 
 	return EXIT_SUCCESS;
 }
 
-vector<string> creerMatriceAlphabet() {
-	const unsigned NB_LETTRES_ALPHABET = 26;
-	vector<string> matrice;
+vector<vector<char>> creerMatriceAlphabet(const string &alphabet) {
+	const size_t NB_LETTRES = alphabet.size();
+	vector<vector<char>> matrice(NB_LETTRES);
 
-	for (unsigned i = NB_LETTRES_ALPHABET; i > 0; --i) {
-		string ligne;
-		for (unsigned j = 0; j < i; ++j) {
-			ligne += 'a' + (char) j;
-		}
-		matrice.push_back(ligne);
+	for (size_t i = 0; i < NB_LETTRES; ++i) {
+		matrice.at(i).reserve(NB_LETTRES - i);
+		matrice.at(i).assign(
+			alphabet.begin(),
+			alphabet.begin() + (long long) (NB_LETTRES - i)
+		);
 	}
 
 	return matrice;
 }
 
-void afficherEx5_19(const vector<string> &matrice) {
-	for (const string &ligne : matrice) {
-		cout << ligne << endl;
+void afficherEx5_19(const vector<vector<char>> &matrice) {
+	for (const vector<char> &ligne : matrice) {
+		for (char c : ligne) {
+			cout << c;
+		}
+		cout << endl;
 	}
 }
 
 int ex5_19() {
-	vector<string> matrice = creerMatriceAlphabet();
+	vector<vector<char>> matrice = creerMatriceAlphabet("abcdefghijklmnopqrstuvwxyz");
 	afficherEx5_19(matrice);
 
 	return EXIT_SUCCESS;
 }
 
 void afficherExtremites(array<int, 3> tab) {
-	cout << "Premier element: " << *tab.begin() << endl;
-	cout << "Dernier element: " << *(tab.end() - 1) << endl;
+	cout << "Premier element: " << tab.front() << endl;
+	cout << "Dernier element: " << tab.back() << endl;
 }
 
 int ex5_21() {
@@ -509,6 +515,60 @@ int ex5_21() {
 	tab1.fill(0);
 	// 5)
 	afficher(tab1);
+
+	return EXIT_SUCCESS;
+}
+
+using ushort = unsigned short;
+enum class Pays {
+	CANADA, CHINE, ALLEMAGNE, COREE, JAPON, RUSSIE, ETATS_UNIS
+};
+const ushort NB_PAYS = 8;
+const string PAYS[] = {"Canada", "Chine", "Allemagne", "Coree", "Japon", "Russie",
+							  "Etats-Unis"};
+enum class TypeMedaille {
+	OR, ARGENT, BRONZE
+};
+const ushort NB_TYPES_MEDAILLE = 3;
+const string TYPE_MEDAILLE[] = {"Or", "Argent", "Bronze"};
+using Medailles_Obtenues = array<ushort, NB_TYPES_MEDAILLE>;
+using Medailles = array<Medailles_Obtenues, NB_PAYS>;
+
+unsigned nbTotalMedailles(const Medailles &medailles, const Pays &pays) {
+	unsigned nbTotalMedailles = 0;
+	for (ushort j = 0; j < NB_TYPES_MEDAILLE; ++j) {
+		nbTotalMedailles += medailles[(ushort) pays][j];
+	}
+
+	return nbTotalMedailles;
+}
+
+unsigned nbTotalMedailles(const Medailles &medailles,
+								  const TypeMedaille &typeMedaille) {
+	unsigned nbTotalMedailles = 0;
+	for (ushort i = 0; i < NB_PAYS; ++i) {
+		nbTotalMedailles += medailles[i][(ushort) typeMedaille];
+	}
+	return nbTotalMedailles;
+}
+
+int ex5_22() {
+	const Medailles MEDAILLES = {
+		Medailles_Obtenues{1, 0, 1},
+		Medailles_Obtenues{1, 1, 1},
+		Medailles_Obtenues{0, 0, 1},
+		Medailles_Obtenues{1, 0, 0},
+		Medailles_Obtenues{0, 1, 1},
+		Medailles_Obtenues{0, 1, 1},
+		Medailles_Obtenues{1, 1, 1},
+	};
+
+	for (Pays p = Pays::CANADA; p <= Pays::ETATS_UNIS; p = (Pays) ((int) p + 1)) {
+		unsigned nbMedailles = nbTotalMedailles(MEDAILLES, p);
+		cout << setw(10) << left << PAYS[(int) p] << " : "
+			  << nbMedailles << " medaille" << (nbMedailles >= 2 ? "s" : "")
+			  << endl;
+	}
 
 	return EXIT_SUCCESS;
 }
