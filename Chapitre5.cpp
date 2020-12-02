@@ -8,6 +8,7 @@
 #include <vector>
 #include <array>
 #include <algorithm>
+#include <numeric>
 
 using namespace std;
 
@@ -646,6 +647,45 @@ int ex5_25() {
 	return EXIT_SUCCESS;
 }
 
-// Même énoncé que l'exercice 5_14 mais il est demandé ici 1) de considérer des
-// vectors plutôt que des tableaux classiques, 2) de faire usage au maximum des
-// fonctionnalités offertes par <algorithm>.
+ostream &operator<<(ostream &os, const vector<int> &v) {
+	os << '[';
+	for (auto i = v.begin(); i != v.end(); ++i) {
+		if (i != v.begin())
+			os << ", ";
+		os << *i;
+	}
+	os << "]";
+
+	return os;
+}
+
+int ex5_26() {
+	int tab[] = {3, 2, -5, 2, 4};
+	vector<int> v;
+	v.insert(v.end(), &tab[0], &tab[5]);
+
+	cout << "Le vecteur v initial :" << endl << v << endl
+		  << "La plus petite valeur de v : "
+		  << *min_element(v.begin(), v.end()) << endl
+		  << "La plus grande valeur de v : "
+		  << *max_element(v.begin(), v.end()) << endl
+		  << "La somme des elements de v : "
+		  << accumulate(v.begin(), v.end(), 0) << endl
+		  << "Nombre d'occurrences de la valeur 2 dans v : "
+		  << count(v.begin(), v.end(), 2) << endl
+		  << "Nombre de valeurs impaires dans v : "
+		  << count_if(v.begin(), v.end(), estImpair) << endl;
+
+	sort(v.begin(), v.end());
+	cout << "Le vecteur v trie croissant : " << v << endl;
+
+	sort(v.begin(), v.end(), greater<>());
+	cout << "Le vecteur v trie decroissant : " << v << endl;
+
+	cout << "Vecteur compose des sommes partielles de v : " << endl;
+	vector<int> vSommes(v.size());
+	std::partial_sum(v.begin(), v.end(), vSommes.begin());
+	cout << vSommes;
+
+	return EXIT_SUCCESS;
+}
