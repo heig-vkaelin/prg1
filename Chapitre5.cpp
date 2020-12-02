@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <vector>
 #include <array>
+#include <algorithm>
 
 using namespace std;
 
@@ -569,6 +570,29 @@ int ex5_22() {
 			  << nbMedailles << " medaille" << (nbMedailles >= 2 ? "s" : "")
 			  << endl;
 	}
+
+	return EXIT_SUCCESS;
+}
+
+bool estImpair(int i) { return i % 2; }
+
+bool tousImpairsV2(const vector<int> &vecteur) {
+	return all_of(vecteur.begin(), vecteur.end(), estImpair);
+}
+
+int ex5_23() {
+	vector<int> v1 = {1, 2, 3, 4, 5};
+	vector<int> v2 = {1, 3, 5, 7};
+	vector<int> v3 = {};
+
+	afficherVector(v1);
+	cout << boolalpha << tousImpairsV2(v1) << endl;
+
+	afficherVector(v2);
+	cout << boolalpha << tousImpairsV2(v2) << endl;
+
+	afficherVector(v3);
+	cout << boolalpha << tousImpairsV2(v3) << endl;
 
 	return EXIT_SUCCESS;
 }
