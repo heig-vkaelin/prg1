@@ -613,3 +613,39 @@ int ex5_24() {
 
 	return EXIT_SUCCESS;
 }
+
+bool vecteursEgaux(vector<int> v1, vector<int> v2) {
+	sort(v1.begin(), v1.end());
+	v1.erase(unique(v1.begin(), v1.end()), v1.end());
+
+	sort(v2.begin(), v2.end());
+	v2.erase(unique(v2.begin(), v2.end()), v2.end());
+
+	return v1 == v2;
+}
+
+int ex5_25() {
+	vector<int> v1 = {3, 3, 1, 1, 2, 1};
+	vector<int> v2 = {1, 2, 3};
+
+	vector<int> v3 = {3, 3, 7, 0, 5, 2};
+	vector<int> v4 = {3, 0, 5};
+
+	vector<int> v5 = {5, 0, 3};
+	vector<int> v6 = {3, 0, 0, 3, 5, 5, 3};
+
+	vector<int> v7 = {1, 2, 3, 4, 5};
+	vector<int> v8 = {1, 3, 2, 7};
+
+	cout << boolalpha
+		  << vecteursEgaux(v1, v2) << endl
+		  << vecteursEgaux(v3, v4) << endl
+		  << vecteursEgaux(v5, v6) << endl
+		  << vecteursEgaux(v7, v8) << endl;
+
+	return EXIT_SUCCESS;
+}
+
+// Même énoncé que l'exercice 5_14 mais il est demandé ici 1) de considérer des
+// vectors plutôt que des tableaux classiques, 2) de faire usage au maximum des
+// fonctionnalités offertes par <algorithm>.
