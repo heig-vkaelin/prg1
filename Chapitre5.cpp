@@ -577,8 +577,8 @@ int ex5_22() {
 
 bool estImpair(int i) { return i % 2; }
 
-bool tousImpairsV2(const vector<int> &vecteur) {
-	return all_of(vecteur.begin(), vecteur.end(), estImpair);
+bool tousImpairsV2(const vector<int> &v) {
+	return all_of(v.begin(), v.end(), estImpair);
 }
 
 int ex5_23() {
@@ -598,9 +598,10 @@ int ex5_23() {
 	return EXIT_SUCCESS;
 }
 
-vector<int> appendv2(vector<int> v1, const vector<int> &v2) {
-	v1.insert(v1.end(), v2.begin(), v2.end());
-	return v1;
+vector<int> appendV2(const vector<int> &v1, const vector<int> &v2) {
+	vector<int> v(v1.size() + v2.size());
+	copy(v2.begin(), v2.end(), copy(v1.begin(), v1.end(), v.begin()));
+	return v;
 }
 
 int ex5_24() {
@@ -609,20 +610,21 @@ int ex5_24() {
 
 	afficherVector(v1);
 	afficherVector(v2);
-	auto v3 = appendv2(v1, v2);
+	auto v3 = appendV2(v1, v2);
 	afficherVector(v3);
 
 	return EXIT_SUCCESS;
 }
 
-bool vecteursEgaux(vector<int> v1, vector<int> v2) {
-	sort(v1.begin(), v1.end());
-	v1.erase(unique(v1.begin(), v1.end()), v1.end());
+vector<int> ensemble(const vector<int> &v) {
+	vector<int> w(v);
+	sort(w.begin(), w.end());
+	w.erase(unique(w.begin(), w.end()), w.end());
+	return w;
+}
 
-	sort(v2.begin(), v2.end());
-	v2.erase(unique(v2.begin(), v2.end()), v2.end());
-
-	return v1 == v2;
+bool vecteursEgaux(const vector<int> &v1, const vector<int> &v2) {
+	return ensemble(v1) == ensemble(v2);
 }
 
 int ex5_25() {
@@ -649,14 +651,13 @@ int ex5_25() {
 
 template<typename T>
 ostream &operator<<(ostream &os, const vector<T> &v) {
-	os << '[';
+	os << "[";
 	for (auto i = v.begin(); i != v.end(); ++i) {
 		if (i != v.begin())
 			os << ", ";
 		os << *i;
 	}
 	os << "]";
-
 	return os;
 }
 
