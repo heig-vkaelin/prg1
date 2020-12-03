@@ -647,7 +647,8 @@ int ex5_25() {
 	return EXIT_SUCCESS;
 }
 
-ostream &operator<<(ostream &os, const vector<int> &v) {
+template<typename T>
+ostream &operator<<(ostream &os, const vector<T> &v) {
 	os << '[';
 	for (auto i = v.begin(); i != v.end(); ++i) {
 		if (i != v.begin())
@@ -686,6 +687,65 @@ int ex5_26() {
 	vector<int> vSommes(v.size());
 	std::partial_sum(v.begin(), v.end(), vSommes.begin());
 	cout << vSommes;
+
+	return EXIT_SUCCESS;
+}
+
+void positionsPrenoms(const vector<string> &v, const vector<string> &prenoms) {
+	for (auto i = v.begin(); i != v.end(); ++i) {
+		auto prenom = find(prenoms.begin(), prenoms.end(), *i);
+
+		if (prenom != prenoms.end()) {
+			cout << "- " << *prenom << " en position " << i - v.begin() << endl;
+		}
+	}
+}
+
+vector<int> trouverDoublons(const vector<string> &v) {
+	vector<int> doublons;
+	for (size_t i = 0; i < v.size(); ++i) {
+		auto pos = adjacent_find(v.begin() + (long long) (i), v.end());
+		int index = (int) (pos - v.begin());
+
+		if (pos != v.end()
+			 && find(doublons.begin(), doublons.end(), index) == doublons.end()) {
+			doublons.push_back(index);
+		}
+	}
+	return doublons;
+}
+
+void trouverMotif(const vector<string> &v, const vector<string> &motif) {
+	for (auto i = v.begin(); i != v.end(); ++i) {
+		long long index =
+			search(i, v.end(), motif.begin(), motif.end()) - v.begin();
+
+		if (index == v.end() - v.begin()) {
+			break;
+		}
+		cout << "- le motif " << motif << " en position " << index << endl;
+		i += (long long) motif.size();
+	}
+}
+
+int ex5_27() {
+	vector<string> v = {"Pierre", "Pierre", "Pierre", "Paul", "Jacques", "Jacques",
+							  "Henri", "Pierre", "Paul", "Jacques"};
+
+	cout << "Dans le vecteur" << endl
+		  << v << endl
+		  << "on trouve : " << endl << endl;
+
+	vector<string> p = {"Paul", "Henri"};
+	positionsPrenoms(v, p);
+
+	vector<string> motif = {"Pierre", "Paul", "Jacques"};
+	trouverMotif(v, motif);
+
+	auto doublons = trouverDoublons(v);
+	for (int doublon : doublons) {
+		cout << "- un doublon en position " << doublon << endl;
+	}
 
 	return EXIT_SUCCESS;
 }
