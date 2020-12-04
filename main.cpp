@@ -56,5 +56,6 @@ int main() {
 	// return ex5_26();
 	// return ex5_27();
 
-	return ex6_1();
+	// return ex6_1();
+	return ex6_7();
 }

@@ -676,7 +676,7 @@ int ex5_26() {
 		  << "Nombre d'occurrences de la valeur 2 dans v : "
 		  << count(v.begin(), v.end(), 2) << endl
 		  << "Nombre de valeurs impaires dans v : "
-		  << count_if(v.begin(), v.end(), estImpair) << endl;
+		  << count_if(v.begin(), v.end(), [](int i) { return i % 2; }) << endl;
 
 	sort(v.begin(), v.end());
 	cout << "Le vecteur v trie croissant : " << v << endl;
@@ -686,7 +686,7 @@ int ex5_26() {
 
 	cout << "Vecteur compose des sommes partielles de v : " << endl;
 	vector<int> vSommes(v.size());
-	std::partial_sum(v.begin(), v.end(), vSommes.begin());
+	partial_sum(v.begin(), v.end(), vSommes.begin());
 	cout << vSommes;
 
 	return EXIT_SUCCESS;
@@ -718,13 +718,12 @@ vector<int> trouverDoublons(const vector<string> &v) {
 
 void trouverMotif(const vector<string> &v, const vector<string> &motif) {
 	for (auto i = v.begin(); i != v.end(); ++i) {
-		long long index =
-			search(i, v.end(), motif.begin(), motif.end()) - v.begin();
+		auto index = search(i, v.end(), motif.begin(), motif.end());
 
-		if (index == v.end() - v.begin()) {
+		if (index == v.end()) {
 			break;
 		}
-		cout << "- le motif " << motif << " en position " << index << endl;
+		cout << "- le motif " << motif << " en position " << index - v.begin() << endl;
 		i += (long long) motif.size();
 	}
 }

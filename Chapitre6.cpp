@@ -31,3 +31,17 @@ int ex6_1() {
 
 	return EXIT_SUCCESS;
 }
+
+string milieu(const string &str) {
+	if (str.empty()) { return "Chaine de caractere vide"; }
+	unsigned long long decalage = str.size() % 2 ? 1 : 2;
+	return str.substr(str.size() / 2 - decalage + 1, decalage);
+}
+
+int ex6_7() {
+	cout << milieu("") << endl;
+	cout << milieu("ABC") << endl;
+	cout << milieu("ABCD") << endl;
+
+	return EXIT_SUCCESS;
+}
