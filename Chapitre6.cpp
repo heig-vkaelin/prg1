@@ -34,7 +34,7 @@ int ex6_1() {
 
 string milieu(const string &str) {
 	if (str.empty()) { return "Chaine de caractere vide"; }
-	unsigned long long decalage = str.size() % 2 ? 1 : 2;
+	unsigned decalage = str.size() % 2 ? 1 : 2;
 	return str.substr(str.size() / 2 - decalage + 1, decalage);
 }
 
