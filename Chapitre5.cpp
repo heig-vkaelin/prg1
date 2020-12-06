@@ -200,10 +200,10 @@ int ex5_9() {
 	return EXIT_SUCCESS;
 }
 
-int sommeAlternee(const int tab[], unsigned taille) {
+int sommeAlternee(const int tab[], size_t taille) {
 	int somme = 0;
-	for (unsigned i = 0; i < taille; ++i) {
-		somme += i % 2 == 0 ? tab[i] : -tab[i];
+	for (size_t i = 0; i < taille; ++i) {
+		somme += tab[i] * (i % 2 ? -1 : 1);
 	}
 	return somme;
 }
@@ -220,9 +220,10 @@ int ex5_11() {
 	return EXIT_SUCCESS;
 }
 
-void supprimerOccurrences(int tab[], unsigned &taille, int valeur) {
-	unsigned decalage = 0;
-	for (unsigned i = 0; i < taille; ++i) {
+void supprimerOccurrences(int tab[], size_t &taille, int valeur,
+								  size_t posDebut = 0) {
+	size_t decalage = 0;
+	for (size_t i = posDebut; i < taille; ++i) {
 		tab[i - decalage] = tab[i];
 		if (tab[i] == valeur) {
 			decalage++;
@@ -232,7 +233,7 @@ void supprimerOccurrences(int tab[], unsigned &taille, int valeur) {
 }
 
 int ex5_12() {
-	unsigned tailleTab1 = 10;
+	size_t tailleTab1 = 10;
 	int tab1[] = {1, 2, 3, 4, 5, 2, 6, 7, 2, 8};
 
 	afficherTableau(tab1, tailleTab1);
@@ -242,22 +243,15 @@ int ex5_12() {
 	return EXIT_SUCCESS;
 }
 
-void supprimerDoublons(int tab[], unsigned &taille) {
-	for (unsigned i = 0; i < taille; i++) {
-		for (unsigned j = 0; j < i; j++) {
-			if (tab[i] == tab[j]) {
-				taille--;
-				for (unsigned k = i; k < taille; k++) {
-					tab[k] = tab[k + 1];
-				}
-				i--;
-			}
-		}
+void supprimerDoublons(int tab[], size_t &taille) {
+	if (taille < 2) { return; }
+	for (size_t i = 0; i < taille - 1; ++i) {
+		supprimerOccurrences(tab, taille, tab[i], i + 1);
 	}
 }
 
 int ex5_13() {
-	unsigned tailleTab1 = 7;
+	size_t tailleTab1 = 7;
 	int tab1[] = {1, 2, 4, 2, 1, 1, 3};
 
 	afficherTableau(tab1, tailleTab1);
@@ -267,38 +261,27 @@ int ex5_13() {
 	return EXIT_SUCCESS;
 }
 
-//void copierTableau(const int tabSource[], int tabDest[], unsigned taille) {
-//	for (unsigned i = 0; i < taille; i++) {
-//		tabDest[i] = tabSource[i];
-//	}
-//}
-
-unsigned chercher(const int tab[], unsigned taille, int val, unsigned pos = 0) {
-	for (; pos < taille; ++pos) {
-		if (tab[pos] == val) {
-			return pos;
+bool appartientA(const int t[], size_t n, int val) {
+	for (size_t i = 0; i < n; ++i) {
+		if (t[i] == val) {
+			return true;
 		}
 	}
-	return taille;
+	return false;
 }
 
-bool tableauxEgaux(const int tab1[], const int tab2[], unsigned tailleTab1,
-						 unsigned tailleTab2) {
-	unsigned tailleMax = tailleTab1 < tailleTab2 ? tailleTab2 : tailleTab1;
-
-	for (unsigned i = 0; i < tailleMax; ++i) {
-		bool elementDansTab1 =
-			i > tailleTab1 - 1 || chercher(tab2, tailleTab2, tab1[i]) != tailleTab2;
-		bool elementDansTab2 =
-			i > tailleTab2 - 1 || chercher(tab1, tailleTab1, tab2[i]) != tailleTab1;
-
-		if (!elementDansTab1 || !elementDansTab2) {
+bool estInclus(const int t1[], size_t n1, const int t2[], size_t n2) {
+	for (size_t i = 0; i < n1; ++i) {
+		if (!appartientA(t2, n2, t1[i])) {
 			return false;
 		}
 	}
 	return true;
 }
 
+bool tableauxEgaux(const int t1[], size_t n1, const int t2[], size_t n2) {
+	return estInclus(t1, n1, t2, n2) && estInclus(t2, n2, t1, n1);
+}
 
 int ex5_14() {
 	int tab1[] = {3, 3, 1, 1, 2, 1};
@@ -314,23 +297,12 @@ int ex5_14() {
 	int tab8[] = {1, 3, 2, 7};
 
 	cout << boolalpha
-		  << tableauxEgaux(tab1, tab2, 6, 3) << endl
-		  << tableauxEgaux(tab3, tab4, 6, 3) << endl
-		  << tableauxEgaux(tab5, tab6, 3, 7) << endl
-		  << tableauxEgaux(tab7, tab8, 5, 4) << endl;
+		  << tableauxEgaux(tab1, 6, tab2, 3) << endl
+		  << tableauxEgaux(tab3, 5, tab4, 3) << endl
+		  << tableauxEgaux(tab5, 3, tab6, 7) << endl
+		  << tableauxEgaux(tab7, 5, tab8, 4) << endl;
 
 	return EXIT_SUCCESS;
-}
-
-void afficherVector(const vector<int> &vecteur) {
-	cout << "[";
-	for (size_t i = 0; i < vecteur.size(); ++i) {
-		if (i > 0) {
-			cout << ", ";
-		}
-		cout << vecteur.at(i);
-	}
-	cout << "]" << endl;
 }
 
 template<typename T>
@@ -359,31 +331,34 @@ int ex5_15() {
 	vector<int> v2 = {1, 3, 5, 7};
 	vector<int> v3 = {};
 
-	afficherVector(v1);
+	afficher(v1);
 	cout << boolalpha << tousImpairs(v1) << endl;
 
-	afficherVector(v2);
+	afficher(v2);
 	cout << boolalpha << tousImpairs(v2) << endl;
 
-	afficherVector(v3);
+	afficher(v3);
 	cout << boolalpha << tousImpairs(v3) << endl;
 
 	return EXIT_SUCCESS;
 }
 
-vector<int> append(vector<int> v1, const vector<int> &v2) {
-	v1.insert(v1.end(), v2.begin(), v2.end());
-	return v1;
+vector<int> append(const vector<int> &v1, const vector<int> &v2) {
+	vector<int> v;
+	v.reserve(v1.size() + v2.size());
+	v.insert(v.end(), v1.begin(), v1.end());
+	v.insert(v.end(), v2.begin(), v2.end());
+	return v;
 }
 
 int ex5_16() {
 	vector<int> v1 = {1, 3};
 	vector<int> v2 = {2, 4, 5};
 
-	afficherVector(v1);
-	afficherVector(v2);
+	afficher(v1);
+	afficher(v2);
 	auto v3 = append(v1, v2);
-	afficherVector(v3);
+	afficher(v3);
 
 	return EXIT_SUCCESS;
 }
@@ -586,13 +561,13 @@ int ex5_23() {
 	vector<int> v2 = {1, 3, 5, 7};
 	vector<int> v3 = {};
 
-	afficherVector(v1);
+	afficher(v1);
 	cout << boolalpha << tousImpairsV2(v1) << endl;
 
-	afficherVector(v2);
+	afficher(v2);
 	cout << boolalpha << tousImpairsV2(v2) << endl;
 
-	afficherVector(v3);
+	afficher(v3);
 	cout << boolalpha << tousImpairsV2(v3) << endl;
 
 	return EXIT_SUCCESS;
@@ -608,10 +583,10 @@ int ex5_24() {
 	vector<int> v1 = {1, 3};
 	vector<int> v2 = {2, 4, 5};
 
-	afficherVector(v1);
-	afficherVector(v2);
+	afficher(v1);
+	afficher(v2);
 	auto v3 = appendV2(v1, v2);
-	afficherVector(v3);
+	afficher(v3);
 
 	return EXIT_SUCCESS;
 }
