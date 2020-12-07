@@ -1,6 +1,10 @@
 #include "exercises.h"
 
+#include <cstdlib>
 #include <iostream>
+#include <iomanip>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -57,5 +61,8 @@ int main() {
 	// return ex5_27();
 
 	// return ex6_1();
-	return ex6_7();
+	// return ex6_7();
+	return ex6_9();
+	// return ex6_10();
+	// return ex6_11();
 }
