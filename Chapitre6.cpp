@@ -52,20 +52,17 @@ int ex6_7() {
 
 int nombreRomainEnDecimal(string romain) {
 	int decimal = 0;
-	map<char, int> m = {{'I', 1},
-							  {'V', 5},
-							  {'X', 10},
-							  {'L', 50},
-							  {'C', 100},
-							  {'D', 500},
-							  {'M', 1000}};
+	map<char, int> valRomaines = {{'I', 1},
+											{'V', 5},
+											{'X', 10},
+											{'L', 50},
+											{'C', 100},
+											{'D', 500},
+											{'M', 1000}};
 
 	for (size_t i = 0; i < romain.length(); i++) {
-		if (m[romain[i + 1]] <= m[romain[i]]) {
-			decimal += m[romain[i]];
-		} else {
-			decimal -= m[romain[i]];
-		}
+		int val = valRomaines[romain[i]];
+		decimal += valRomaines[romain[i + 1]] <= val ? val : val * -1;
 	}
 	return decimal;
 }
