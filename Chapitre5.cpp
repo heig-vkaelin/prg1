@@ -9,6 +9,7 @@
 #include <array>
 #include <algorithm>
 #include <numeric>
+#include <iterator>
 
 using namespace std;
 
@@ -628,8 +629,7 @@ template<typename T>
 ostream &operator<<(ostream &os, const vector<T> &v) {
 	os << "[";
 	for (auto i = v.begin(); i != v.end(); ++i) {
-		if (i != v.begin())
-			os << ", ";
+		if (i != v.begin()) { os << ", "; }
 		os << *i;
 	}
 	os << "]";
@@ -637,9 +637,12 @@ ostream &operator<<(ostream &os, const vector<T> &v) {
 }
 
 int ex5_26() {
-	int tab[] = {3, 2, -5, 2, 4};
+	const int TAB[] = {3, 2, -5, 2, 4};
 	vector<int> v;
-	v.insert(v.end(), &tab[0], &tab[5]);
+
+	const size_t TAILLE_TAB = sizeof(TAB) / sizeof(int);
+	v.resize(TAILLE_TAB);
+	copy(TAB, TAB + TAILLE_TAB, v.begin());
 
 	cout << "Le vecteur v initial :" << endl << v << endl
 		  << "La plus petite valeur de v : "
@@ -651,75 +654,57 @@ int ex5_26() {
 		  << "Nombre d'occurrences de la valeur 2 dans v : "
 		  << count(v.begin(), v.end(), 2) << endl
 		  << "Nombre de valeurs impaires dans v : "
-		  << count_if(v.begin(), v.end(), [](int i) { return i % 2; }) << endl;
+		  << count_if(v.begin(), v.end(), [](int n) { return n % 2; }) << endl;
 
 	sort(v.begin(), v.end());
 	cout << "Le vecteur v trie croissant : " << v << endl;
 
-	sort(v.begin(), v.end(), greater<>());
+	sort(v.rbegin(), v.rend());
 	cout << "Le vecteur v trie decroissant : " << v << endl;
 
 	cout << "Vecteur compose des sommes partielles de v : " << endl;
-	vector<int> vSommes(v.size());
-	partial_sum(v.begin(), v.end(), vSommes.begin());
-	cout << vSommes;
+	vector<int> sp(v.size());
+	partial_sum(v.begin(), v.end(), sp.begin());
+	cout << sp;
 
 	return EXIT_SUCCESS;
 }
 
-void positionsPrenoms(const vector<string> &v, const vector<string> &prenoms) {
-	for (auto i = v.begin(); i != v.end(); ++i) {
-		auto prenom = find(prenoms.begin(), prenoms.end(), *i);
-
-		if (prenom != prenoms.end()) {
-			cout << "- " << *prenom << " en position " << i - v.begin() << endl;
-		}
-	}
-}
-
-vector<int> trouverDoublons(const vector<string> &v) {
-	vector<int> doublons;
-	for (size_t i = 0; i < v.size(); ++i) {
-		auto pos = adjacent_find(v.begin() + (long long) (i), v.end());
-		int index = (int) (pos - v.begin());
-
-		if (pos != v.end()
-			 && find(doublons.begin(), doublons.end(), index) == doublons.end()) {
-			doublons.push_back(index);
-		}
-	}
-	return doublons;
-}
-
-void trouverMotif(const vector<string> &v, const vector<string> &motif) {
-	for (auto i = v.begin(); i != v.end(); ++i) {
-		auto index = search(i, v.end(), motif.begin(), motif.end());
-
-		if (index == v.end()) {
-			break;
-		}
-		cout << "- le motif " << motif << " en position " << index - v.begin() << endl;
-		i += (long long) motif.size();
-	}
-}
-
 int ex5_27() {
-	vector<string> v = {"Pierre", "Pierre", "Pierre", "Paul", "Jacques", "Jacques",
-							  "Henri", "Pierre", "Paul", "Jacques"};
+	const vector<string> PRENOMS = {"Pierre", "Pierre", "Pierre", "Paul", "Jacques",
+											  "Jacques", "Henri", "Pierre", "Paul", "Jacques"};
 
-	cout << "Dans le vecteur" << endl
-		  << v << endl
+	auto debut = PRENOMS.begin(),
+		fin = PRENOMS.end(),
+		courant = PRENOMS.begin();
+
+	cout << "Dans le vecteur" << endl << PRENOMS << endl
 		  << "on trouve : " << endl << endl;
 
-	vector<string> p = {"Paul", "Henri"};
-	positionsPrenoms(v, p);
+	// Recherche dans PRENOMS les prénoms listés dans r1
+	vector<string> r1 = {"Paul", "Henri"};
+	while ((courant = find_first_of(courant, fin, r1.begin(), r1.end())) != fin) {
+		cout << "- " << *courant
+			  << " en position " << distance(debut, courant) << endl;
+		++courant;
+	}
 
-	vector<string> motif = {"Pierre", "Paul", "Jacques"};
-	trouverMotif(v, motif);
+	courant = PRENOMS.begin();
 
-	auto doublons = trouverDoublons(v);
-	for (int doublon : doublons) {
-		cout << "- un doublon en position " << doublon << endl;
+	// Recherche dans PRENOMS les positions du motif défini par r2
+	vector<string> r2 = {"Pierre", "Paul", "Jacques"};
+	while ((courant = search(courant, fin, r2.begin(), r2.end())) != fin) {
+		cout << "- le motif " << r2
+			  << " en position " << distance(debut, courant) << endl;
+		++courant;
+	}
+
+	courant = PRENOMS.begin();
+
+	// Recherche dans PRENOMS les positions des doublons
+	while ((courant = adjacent_find(courant, fin)) != fin) {
+		cout << "- un doublon en position " << distance(debut, courant) << endl;
+		++courant;
 	}
 
 	return EXIT_SUCCESS;
