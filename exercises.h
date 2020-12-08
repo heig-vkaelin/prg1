@@ -61,5 +61,10 @@ int ex6_7();
 int ex6_9();
 int ex6_10();
 int ex6_11();
+int ex6_13();
+int ex6_14();
+int ex6_15();
+int ex6_16();
+int ex6_17();
 
 #endif // PRG1_EXERCICES_H

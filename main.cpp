@@ -62,7 +62,12 @@ int main() {
 
 	// return ex6_1();
 	// return ex6_7();
-	return ex6_9();
+	// return ex6_9();
 	// return ex6_10();
 	// return ex6_11();
+	// return ex6_13();
+	// return ex6_14();
+	// return ex6_15();
+	// return ex6_16();
+	return ex6_17();
 }
