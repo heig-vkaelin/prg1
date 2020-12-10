@@ -37,9 +37,8 @@ int ex6_1() {
 }
 
 string milieu(const string &str) {
-	if (str.empty()) { return "Chaine de caractere vide"; }
-	unsigned decalage = str.size() % 2 ? 1 : 2;
-	return str.substr(str.size() / 2 - decalage + 1, decalage);
+	size_t TAILLE = str.length();
+	return TAILLE == 0 ? str : str.substr((TAILLE - 1) / 2, 2 - TAILLE % 2);
 }
 
 int ex6_7() {
@@ -76,17 +75,17 @@ int ex6_9() {
 
 int ex6_10() {
 	const unsigned W = 20;
-	int entier;
+	int n;
 	cout << "Entrez un nombre entier >= 0 :";
-	cin >> entier;
-	string entierStr = to_string(entier);
+	cin >> n;
 
-	cout << left << setw(W) << "Nombre saisi" << ": " << entierStr << endl
-		  << left << setw(W) << "Nombre de chiffres" << ": " << entierStr.length()
-		  << endl
-		  << left << setw(W) << "Premier chiffre " << ": " << entierStr.at(0) << endl
-		  << left << setw(W) << "Dernier chiffre" << ": "
-		  << entierStr.at(entierStr.length() - 1) << endl;
+	string s = to_string(n);
+
+	cout << endl
+		  << left << setw(W) << "Nombre saisi" << ": " << s << endl
+		  << left << setw(W) << "Nombre de chiffres" << ": " << s.length() << endl
+		  << left << setw(W) << "Premier chiffre " << ": " << s.front() << endl
+		  << left << setw(W) << "Dernier chiffre" << ": " << s.back() << endl;
 
 	return EXIT_SUCCESS;
 }
@@ -96,10 +95,9 @@ int ex6_11() {
 	string prenom, nom;
 	cout << "Entrez votre prenom et votre nom :";
 	cin >> prenom >> nom;
-	string acronyme{prenom[0], nom[0], nom[nom.length() - 1]};
-	for (char &lettre : acronyme) {
-		lettre = (char) toupper(lettre);
-	}
+
+	string acronyme{prenom.front(), nom.front(), nom.back()};
+	transform(acronyme.begin(), acronyme.end(), acronyme.begin(), ::toupper);
 
 	cout << left << setw(W) << "Votre prenom est" << ": " << prenom << endl
 		  << left << setw(W) << "Votre nom est" << ": " << nom << endl
@@ -153,10 +151,9 @@ int ex6_15() {
 	cout << "Entrez votre prenom et votre nom :";
 	getline(cin, prenom, ' ');
 	getline(cin, nom);
-	string acronyme{prenom[0], nom[0], nom[nom.length() - 1]};
-	for (char &lettre : acronyme) {
-		lettre = (char) toupper(lettre);
-	}
+
+	string acronyme{prenom.front(), nom.front(), nom.back()};
+	transform(acronyme.begin(), acronyme.end(), acronyme.begin(), ::toupper);
 
 	cout << left << setw(W) << "Votre prenom est" << ": " << prenom << endl
 		  << left << setw(W) << "Votre nom est" << ": " << nom << endl
@@ -195,19 +192,19 @@ int ex6_16() {
 
 int ex6_17() {
 	const unsigned W = 20;
-	int entier;
+	int n;
 	cout << "Entrez un nombre entier >= 0 :";
-	cin >> entier;
-	stringstream convert;
-	convert << entier;
-	string entierStr = convert.str();
+	cin >> n;
 
-	cout << left << setw(W) << "Nombre saisi" << ": " << entierStr << endl
-		  << left << setw(W) << "Nombre de chiffres" << ": " << entierStr.length()
-		  << endl
-		  << left << setw(W) << "Premier chiffre " << ": " << entierStr.at(0) << endl
-		  << left << setw(W) << "Dernier chiffre" << ": "
-		  << entierStr.at(entierStr.length() - 1) << endl;
+	stringstream convert;
+	convert << n;
+	string s = convert.str();
+
+	cout << endl
+		  << left << setw(W) << "Nombre saisi" << ": " << s << endl
+		  << left << setw(W) << "Nombre de chiffres" << ": " << s.length() << endl
+		  << left << setw(W) << "Premier chiffre " << ": " << s.front() << endl
+		  << left << setw(W) << "Dernier chiffre" << ": " << s.back() << endl;
 
 	return EXIT_SUCCESS;
 }
