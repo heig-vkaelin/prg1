@@ -208,3 +208,39 @@ int ex6_17() {
 
 	return EXIT_SUCCESS;
 }
+
+int saisieControlee(int min, int max, const string &msgInvite,
+						  const string &msgErreur) {
+	int val;
+	bool saisieOk;
+	do {
+		cout << msgInvite;
+		saisieOk = cin >> val && val >= min && val <= max;
+		if (!saisieOk) {
+			cin.clear();
+			cout << msgErreur << endl << endl;
+		}
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	} while (!saisieOk);
+
+	return val;
+}
+
+int ex6_21() {
+	const int BORNE_MIN = 1;
+	const int BORNE_MAX = 10;
+	const string MSG_INVITE = "Donnez un entier dans l'intervalle [" +
+									  to_string(BORNE_MIN) + ", " + to_string(BORNE_MAX) +
+									  "] :";
+	const string MSG_ERREUR = "Saisie incorrecte. Veuillez SVP recommencer.";
+
+	const int SAISIE = saisieControlee(
+		BORNE_MIN,
+		BORNE_MAX,
+		MSG_INVITE,
+		MSG_ERREUR
+	);
+	cout << "L'entier que vous avez saisi est " << to_string(SAISIE) << "." << endl;
+
+	return EXIT_SUCCESS;
+}

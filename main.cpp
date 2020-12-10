@@ -69,5 +69,6 @@ int main() {
 	// return ex6_14();
 	// return ex6_15();
 	// return ex6_16();
-	return ex6_17();
+	// return ex6_17();
+	return ex6_21();
 }
