@@ -231,13 +231,8 @@ int ex6_21() {
 									  "] :";
 	const string MSG_ERREUR = "Saisie incorrecte. Veuillez SVP recommencer.";
 
-	const int SAISIE = lireEntier(
-		BORNE_MIN,
-		BORNE_MAX,
-		MSG_INVITE,
-		MSG_ERREUR
-	);
-	cout << "L'entier que vous avez saisi est " << to_string(SAISIE) << "." << endl;
+	const int SAISIE = lireEntier(BORNE_MIN, BORNE_MAX, MSG_INVITE, MSG_ERREUR);
+	cout << "L'entier que vous avez saisi est " << SAISIE << "." << endl;
 
 	return EXIT_SUCCESS;
 }
