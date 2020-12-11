@@ -209,20 +209,17 @@ int ex6_17() {
 	return EXIT_SUCCESS;
 }
 
-int saisieControlee(int min, int max, const string &msgInvite,
-						  const string &msgErreur) {
+int lireEntier(int min, int max, const string &msgInvite, const string &msgErreur) {
 	int val;
 	bool saisieOk;
 	do {
 		cout << msgInvite;
-		saisieOk = cin >> val && val >= min && val <= max;
-		if (!saisieOk) {
+		if (!(saisieOk = cin >> val && val >= min && val <= max)) {
 			cin.clear();
 			cout << msgErreur << endl << endl;
 		}
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	} while (!saisieOk);
-
 	return val;
 }
 
@@ -234,7 +231,7 @@ int ex6_21() {
 									  "] :";
 	const string MSG_ERREUR = "Saisie incorrecte. Veuillez SVP recommencer.";
 
-	const int SAISIE = saisieControlee(
+	const int SAISIE = lireEntier(
 		BORNE_MIN,
 		BORNE_MAX,
 		MSG_INVITE,
