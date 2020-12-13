@@ -61,7 +61,11 @@ int nombreRomainEnDecimal(const string &romain) {
 
 	for (size_t i = 0; i < romain.length(); i++) {
 		int val = valRomaines[romain[i]];
-		decimal += valRomaines[romain[i + 1]] <= val ? val : val * -1;
+		if (i != romain.length() - 1 && val < valRomaines[romain.at(i + 1)]) {
+			decimal -= val;
+		} else {
+			decimal += val;
+		}
 	}
 	return decimal;
 }
@@ -134,12 +138,14 @@ int ex6_14() {
 	cout << "Entrez le nom et le numero de la rue :";
 	getline(cin, entree);
 
-	unsigned pos = (unsigned) distance(
-		entree.begin(),
-		find_if(entree.begin(), entree.end(), [](char c) { return isdigit(c); })
-	);
+//	auto pos = (unsigned) distance(
+//		entree.begin(),
+//		find_if(entree.begin(), entree.end(), [](char c) { return isdigit(c); })
+//	);
+	size_t pos = entree.find_first_of("0123456789");
+	if (pos == string::npos) { pos = entree.length(); }
 
-	cout << "Le nom de la rue est : " << entree.substr(0, pos - 1) << endl;
+	cout << "Le nom de la rue est : " << entree.substr(0, pos) << endl;
 	cout << "Le no de la rue est  : " << entree.substr(pos) << endl;
 
 	return EXIT_SUCCESS;
@@ -162,30 +168,54 @@ int ex6_15() {
 	return EXIT_SUCCESS;
 }
 
-int ex6_16() {
-	const int MAX_HIVER = 3 * 100 + 20,
-		MAX_PRINTEMPS = 6 * 100 + 20,
-		MAX_ETE = 9 * 100 + 20,
-		MAX_AUTOMNE = 12 * 100 + 20;
-	string date, saison;
-	cout << "Entrez une date sous la forme jj.mm (par ex 31.12) :";
-	cin >> date;
-	int jour = stoi(date.substr(0, date.find('.')));
-	int mois = stoi(date.substr(date.find('.') + 1));
+//int ex6_16() {
+//	const int MAX_HIVER = 3 * 100 + 20,
+//		MAX_PRINTEMPS = 6 * 100 + 20,
+//		MAX_ETE = 9 * 100 + 20,
+//		MAX_AUTOMNE = 12 * 100 + 20;
+//	string date, saison;
+//	cout << "Entrez une date sous la forme jj.mm (par ex 31.12) :";
+//	cin >> date;
+//	int jour = stoi(date.substr(0, date.find('.')));
+//	int mois = stoi(date.substr(date.find('.') + 1));
+//
+//	int dateMois = mois * 100 + jour;
+//	if (dateMois <= MAX_HIVER) {
+//		saison = "hiver";
+//	} else if (dateMois <= MAX_PRINTEMPS) {
+//		saison = "printemps";
+//	} else if (dateMois <= MAX_ETE) {
+//		saison = "ete";
+//	} else if (dateMois <= MAX_AUTOMNE) {
+//		saison = "automne";
+//	} else {
+//		saison = "hiver";
+//	}
+//	cout << "Le " << date << " se situe en " << saison;
+//
+//	return EXIT_SUCCESS;
+//}
 
-	int dateMois = mois * 100 + jour;
-	if (dateMois <= MAX_HIVER) {
-		saison = "hiver";
-	} else if (dateMois <= MAX_PRINTEMPS) {
-		saison = "printemps";
-	} else if (dateMois <= MAX_ETE) {
-		saison = "ete";
-	} else if (dateMois <= MAX_AUTOMNE) {
-		saison = "automne";
-	} else {
-		saison = "hiver";
+int ex6_16() {
+	enum class Saison {
+		HIVER, PRINTEMPS, ETE, AUTOMNE
+	};
+	const string SAISON[] = {"hiver", "printemps", "ete", "automne"};
+	string strJour, strMois;
+	Saison saison;
+	cout << "Entrez une date sous la forme jj.mm (par ex 31.12) :";
+	getline(cin, strJour, '.');
+	getline(cin, strMois);
+	int jour = stoi(strJour);
+	int mois = stoi(strMois);
+
+	saison = (Saison) ((mois - 1) / 3);
+	if (mois % 3 == 0 && jour >= 21) {
+		saison =
+			saison == Saison::AUTOMNE ? Saison::HIVER : (Saison) ((int) saison + 1);
 	}
-	cout << "Le " << date << " se situe en " << saison;
+	cout << "Le " << setfill('0') << setw(2) << jour << "." << setw(2)
+		  << mois << " se situe en " << SAISON[(size_t) saison];
 
 	return EXIT_SUCCESS;
 }
