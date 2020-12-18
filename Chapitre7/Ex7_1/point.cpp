@@ -8,25 +8,22 @@
 using namespace std;
 using namespace Ex7_1;
 
-Point::Point(float x, float y) {
-	coordX = x;
-	coordY = y;
-}
+Point::Point(float x, float y) : x(x), y(y) {}
 
-void Point::translation(float deplacementX, float deplacementY) {
-	coordX += deplacementX;
-	coordY += deplacementY;
+void Point::deplacer(float dx, float dy) {
+	x += dx;
+	y += dy;
 }
 
 void Point::afficher() const {
-	cout << "(" << coordX << "," << coordY << ")" << endl;
+	cout << "(" << x << "," << y << ")" << endl;
 }
 
 int ex7_1() {
-	Point p1(5, 3.5);
-	p1.afficher();
-	p1.translation(-2, 1.5);
-	p1.afficher();
+	Point p(1.2f, 2.4f);
+	p.afficher();
+	p.deplacer(0.8f, 0.6f);
+	p.afficher();
 
 	return EXIT_SUCCESS;
 }

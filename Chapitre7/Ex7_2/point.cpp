@@ -9,29 +9,34 @@
 using namespace std;
 using namespace Ex7_2;
 
-Point::Point(float x, float y) {
-	coordX = x;
-	coordY = y;
+Point::Point(float x, float y) : x(x), y(y) {}
+
+void Point::deplacer(float dx, float dy) {
+	x += dx;
+	y += dy;
 }
 
-void Point::translation(float deplacementX, float deplacementY) {
-	coordX += deplacementX;
-	coordY += deplacementY;
+float Point::abscisse() const {
+	return x;
 }
 
-float Point::getAbscisse() const {
-	return coordX;
+float Point::ordonnee() const {
+	return y;
 }
 
-float Point::getOrdonnee() const {
-	return coordY;
+// *************************
+// FICHIER MAIN EN DESSOUS
+// *************************
+
+void afficher(const Point &p) {
+	cout << "(" << p.abscisse() << "," << p.ordonnee() << ")" << endl;
 }
 
 int ex7_2() {
-	Point p1(5, 2.5);
-	cout << "(" << p1.getAbscisse() << "," << p1.getOrdonnee() << ")" << endl;
-	p1.translation(-2, 1.5);
-	cout << "(" << p1.getAbscisse() << "," << p1.getOrdonnee() << ")" << endl;
+	Point p(1.2f, 2.4f);
+	afficher(p);
+	p.deplacer(0.8f, 0.6f);
+	afficher(p);
 
 	return EXIT_SUCCESS;
 }

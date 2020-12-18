@@ -8,17 +8,16 @@
 namespace Ex7_2 {
 	class Point {
 	public:
-		Point(float x, float y);
+		Point(float x = 0.f, float y = 0.f);
 
-		void translation(float deplacementX, float deplacementY);
+		void deplacer(float dx, float dy);
 
-		float getAbscisse() const;
+		float abscisse() const;
 
-		float getOrdonnee() const;
+		float ordonnee() const;
 
 	private:
-		float coordX;
-		float coordY;
+		float x, y;
 	};
 }
 
