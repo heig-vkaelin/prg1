@@ -30,10 +30,7 @@ Personne::Personne(const std::string &nom, const std::string &prenom,
 						 const Adresse &adresse, const std::vector<Hobby> &hobbies,
 						 const std::vector<Personne *> &amis)
 	: nom(nom), prenom(prenom), adresse(adresse), hobbies(hobbies) {
-	for (Personne *ami : amis) {
-		ami->amis.push_back(*this);
-		this->amis.push_back(*ami);
-	}
+	ajouterAmis(amis);
 }
 
 void Personne::ajouterHobbies(const std::vector<Hobby> &nouveauxHobbies) {
