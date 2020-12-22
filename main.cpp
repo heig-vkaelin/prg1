@@ -76,5 +76,7 @@ int main() {
 	// return ex7_3();
 	// return ex7_4();
 	// return ex7_5();
-	return ex7_3();
+	// return ex7_7();
+	// return ex7_8();
+	return ex7_9();
 }

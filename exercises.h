@@ -74,5 +74,7 @@ int ex7_3();
 int ex7_4();
 int ex7_5();
 int ex7_7();
+int ex7_8();
+int ex7_9();
 
 #endif // PRG1_EXERCICES_H
