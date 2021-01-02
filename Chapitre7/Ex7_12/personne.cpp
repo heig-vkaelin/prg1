@@ -6,24 +6,24 @@
 
 using namespace std;
 
-string hobbiesToString(const vector<Hobby> &h) {
-	string hobbies = "[";
-	for (size_t i = 0; i < h.size(); ++i) {
-		if (i > 0) { hobbies += ", "; }
-		hobbies += NOMS_HOBBY[(int) h[i]];
+string hobbiesToString(const vector<Hobby> &hobbies) {
+	string strHobbies = "[";
+	for (size_t i = 0; i < hobbies.size(); ++i) {
+		if (i > 0) { strHobbies += ", "; }
+		strHobbies += NOMS_HOBBY[(int) hobbies[i]];
 	}
-	hobbies += "]";
-	return hobbies;
+	strHobbies += "]";
+	return strHobbies;
 }
 
-string amisToString(const vector<Personne> &a) {
-	string amis = "[";
-	for (size_t i = 0; i < a.size(); ++i) {
-		if (i > 0) { amis += ", "; }
-		amis += a[i].prenom + " " + a[i].nom;
+string amisToString(const vector<Personne *> &amis) {
+	string strAmis = "[";
+	for (size_t i = 0; i < amis.size(); ++i) {
+		if (i > 0) { strAmis += ", "; }
+		strAmis += amis[i]->prenom + " " + amis[i]->nom;
 	}
-	amis += "]";
-	return amis;
+	strAmis += "]";
+	return strAmis;
 }
 
 Personne::Personne(const std::string &nom, const std::string &prenom,
@@ -40,8 +40,8 @@ void Personne::ajouterHobbies(const std::vector<Hobby> &nouveauxHobbies) {
 
 void Personne::ajouterAmis(const vector<Personne *> &nouveauxAmis) {
 	for (Personne *ami : nouveauxAmis) {
-		ami->amis.push_back(*this);
-		amis.push_back(*ami);
+		ami->amis.push_back(this);
+		amis.push_back(ami);
 	}
 }
 

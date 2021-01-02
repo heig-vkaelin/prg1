@@ -19,7 +19,7 @@ const std::string NOMS_HOBBY[] = {"sport", "musique", "cinema", "lecture"};
 class Personne {
 	friend std::ostream &operator<<(std::ostream &lhs, const Personne &rhs);
 
-	friend std::string amisToString(const std::vector<Personne> &a);
+	friend std::string amisToString(const std::vector<Personne *> &a);
 
 public:
 	Personne(const std::string &nom, const std::string &prenom,
@@ -34,7 +34,7 @@ private:
 	std::string nom, prenom;
 	Adresse adresse;
 	std::vector<Hobby> hobbies;
-	std::vector<Personne> amis;
+	std::vector<Personne *> amis;
 };
 
 #endif // PRG1_EXERCICES_PERSONNE_7_12_H
