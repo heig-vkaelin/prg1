@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Adresse::Adresse(const string &nom, const string &numero, int codePostal,
+Adresse::Adresse(const string &nom, const string &numero, unsigned codePostal,
 					  const string &localite)
 	: nom(nom), numero(numero), localite(localite), codePostal(codePostal) {
 }

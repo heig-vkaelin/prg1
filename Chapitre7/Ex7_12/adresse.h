@@ -9,14 +9,14 @@
 
 class Adresse {
 public:
-	Adresse(const std::string &nom, const std::string &numero, int codePostal,
+	Adresse(const std::string &nom, const std::string &numero, unsigned codePostal,
 			  const std::string &localite);
 
 	std::string toString() const;
 
 private:
 	std::string nom, numero, localite;
-	int codePostal;
+	unsigned codePostal;
 };
 
 #endif // PRG1_EXERCICES_ADRESSE_7_12_H
