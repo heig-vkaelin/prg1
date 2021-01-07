@@ -5,67 +5,103 @@
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 
 using namespace std;
 
 namespace Ex7_9 {
 	class Voiture {
-		friend void afficherVoiture(const Voiture &v) {
-			const int W = 31;
-			cout << left << fixed << setprecision(1)
-				  << setw(W) << "Capacite du reservoir [l] " << ": " << v.capacite
-				  << endl
-				  << setw(W) << "Consommation moyenne [l/100km] " << ": "
-				  << v.consommation << endl
-				  << setw(W) << "Nb litres restants " << ": " << v.nbLitresActuels
-				  << endl << endl;
-		}
-
 	public:
-		Voiture(int capacite, double consommation)
-			: capacite(capacite), consommation(consommation),
-			  nbLitresActuels(capacite) {};
+		Voiture(unsigned capacite, double consommation);
 
-		static double getPrixEssence() {
-			return prixEssence;
-		}
+		unsigned getCapaciteReservoir() const;
 
-		static void setPrixEssence(double prix) {
-			prixEssence = prix;
-		}
+		double getConsommationMoyenne() const;
 
-		double coutTrajet(int km) {
-			double litres = consommation * km / 100;
+		double getNbLitresDansReservoir() const;
 
-			nbLitresActuels -= litres;
-			while (nbLitresActuels <= 0) { nbLitresActuels += capacite; }
+		double effectuerTrajet(double nbKm);
 
-			return litres * prixEssence;
-		}
+		static double getPrixEssence();
+
+		static void setPrixEssence(double prix);
 
 	private:
-		static inline double prixEssence = 1.5; // prix pour 1 litre
+		static double prixEssence; // en Frs
 
-		int capacite; // en litres
-		double consommation; // litres pour 100km
-		double nbLitresActuels; // nombre de litres restants dans le réservoir
+		unsigned capacite; // en litres
+		double consommation; // litres aux 100km
+		double nbLitresDansReservoir; // nb de litres actuellement dans le réservoir
 	};
 }
 
 using namespace Ex7_9;
 
-void afficherPrix(double val, const string &msg, const string &unite = "Frs",
-						int precision = 2) {
-	cout << fixed << setprecision(precision)
-		  << msg << val << " " << unite << endl << endl;
+double Voiture::prixEssence = 1.5;
+
+Voiture::Voiture(unsigned int capacite, double consommation)
+	: capacite(capacite), consommation(consommation),
+	  nbLitresDansReservoir(capacite) {
 }
+
+unsigned Voiture::getCapaciteReservoir() const {
+	return capacite;
+}
+
+double Voiture::getConsommationMoyenne() const {
+	return consommation;
+}
+
+double Voiture::getNbLitresDansReservoir() const {
+	return nbLitresDansReservoir;
+}
+
+double Voiture::effectuerTrajet(double nbKm) {
+	const double CONSOMMATION = consommation * nbKm / 100;
+	nbLitresDansReservoir -= fmod(CONSOMMATION, capacite);
+	if (nbLitresDansReservoir <= 0) {
+		nbLitresDansReservoir += capacite;
+	}
+
+	// Variante initiale moins efficace mais plus simple à comprendre:
+	//	nbLitresDansReservoir -= CONSOMMATION;
+	//	while (nbLitresDansReservoir <= 0) { nbLitresDansReservoir += capacite; }
+
+	return CONSOMMATION * prixEssence;
+}
+
+double Voiture::getPrixEssence() {
+	return prixEssence;
+}
+
+void Voiture::setPrixEssence(double prix) {
+	prixEssence = prix;
+}
+
+// *************************
+// FICHIER MAIN EN DESSOUS
+// *************************
 
 void afficherPrixEssence(double prix) {
-	afficherPrix(prix, "Prix de l'essence : ");
+	cout << fixed << setprecision(2)
+		  << "Prix de l'essence : " << prix << " " << " Frs"
+		  << endl << endl << defaultfloat;
 }
 
-void afficherCoutTrajet(double coutTrajet) {
-	afficherPrix(coutTrajet, "Cout du trajet : ");
+void afficherVoiture(const Voiture &v) {
+	const int W = 31;
+	cout << left << setw(W) << "Capacite du reservoir [l] " << ": "
+		  << fixed << setprecision(1) << v.getCapaciteReservoir() << endl
+		  << setw(W) << "Consommation moyenne [l/100km] " << ": "
+		  << v.getConsommationMoyenne() << endl
+		  << setw(W) << "Nb litres restants " << ": " << v.getNbLitresDansReservoir()
+		  << endl << endl << defaultfloat;
+}
+
+void afficherCoutTrajet(double montant) {
+	cout << fixed << setprecision(2)
+		  << "Cout du trajet : " << montant << " " << " Frs"
+		  << endl << endl << defaultfloat;
 }
 
 int ex7_9() {
@@ -74,9 +110,9 @@ int ex7_9() {
 	afficherPrixEssence(Voiture::getPrixEssence());
 	Voiture v(52, 6.7);
 	afficherVoiture(v);
-	afficherCoutTrajet(v.coutTrajet(1000));
+	afficherCoutTrajet(v.effectuerTrajet(1000));
 	afficherVoiture(v);
-	afficherCoutTrajet(v.coutTrajet(200));
+	afficherCoutTrajet(v.effectuerTrajet(200));
 	afficherVoiture(v);
 	return EXIT_SUCCESS;
 }
