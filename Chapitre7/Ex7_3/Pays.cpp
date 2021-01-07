@@ -6,7 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "pays.h"
+#include "Pays.h"
 
 using namespace std;
 using namespace Ex7_3;

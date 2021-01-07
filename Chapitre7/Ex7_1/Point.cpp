@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "point.h"
+#include "Point.h"
 
 using namespace std;
 using namespace Ex7_1;

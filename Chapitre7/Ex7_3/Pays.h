@@ -35,6 +35,6 @@ namespace Ex7_3 {
 		double population; // en mio d'habitants
 		unsigned superficie; // en km2
 	};
-};
+}
 
 #endif // PRG1_EXERCICES_PAYS_H
