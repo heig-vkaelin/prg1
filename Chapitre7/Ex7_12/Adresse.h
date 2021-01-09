@@ -6,17 +6,18 @@
 #define PRG1_EXERCICES_ADRESSE_7_12_H
 
 #include <string>
+#include <iostream>
 
 class Adresse {
+	friend std::ostream &operator<<(std::ostream &os, const Adresse &obj);
+
 public:
-	Adresse(const std::string &nom, const std::string &numero, unsigned codePostal,
+	Adresse(const std::string &nomRue, const std::string &noRue, unsigned npa,
 			  const std::string &localite);
 
-	std::string toString() const;
-
 private:
-	std::string nom, numero, localite;
-	unsigned codePostal;
+	std::string nomRue, noRue, localite;
+	unsigned npa;
 };
 
 #endif // PRG1_EXERCICES_ADRESSE_7_12_H
