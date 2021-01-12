@@ -4,61 +4,63 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
+using ushort = unsigned short;
 
 class Temps {
 public:
-	Temps(const string &heures, const string &minutes)
-		: heures(heures), minutes(minutes) {}
+	Temps(ushort heure, ushort minute);
 
-	bool operator==(const Temps &t) const {
-		return t.heures == heures && t.minutes == minutes;
-	}
-
-	friend ostream &operator<<(ostream &lhs, const Temps &rhs) {
-		lhs << rhs.heures + ":" + rhs.minutes;
-		return lhs;
-	}
+	bool operator==(const Temps &t) const;
 
 private:
-	string heures, minutes;
+	ushort heure, minute;
 };
 
+Temps::Temps(ushort heure, ushort minute) : heure(heure), minute(minute) {}
+
+bool Temps::operator==(const Temps &t) const {
+	return t.heure == heure && t.minute == minute;
+}
+
 template<typename T>
-unsigned nbOcc(const T tab[], const T &element, size_t taille) {
-	unsigned nbOcc = 0;
-	for (size_t i = 0; i < taille; ++i) {
-		if (tab[i] == element) nbOcc++;
-	}
-	return nbOcc;
+size_t nbOcc(const T tab[], size_t taille, const T &element) {
+	return (size_t) count(tab, tab + taille, element);
 }
 
 int ex8_2() {
-	int tab1[] = {0, 1, 0};
-	int valAChercher = 0;
-	cout << "Nombre de valeur " << valAChercher << ": "
-		  << nbOcc(tab1, valAChercher, 3) << endl;
-
-	Temps tab2[] = {
-		Temps("07", "45"),
-		Temps("09", "20"),
-		Temps("12", "00"),
-		Temps("21", "30"),
-	};
-	Temps tempsAChercher("12", "00");
-	cout << "Nombre de " << tempsAChercher << ": "
-		  << nbOcc(tab2, tempsAChercher, 4) << endl;
-
-	string tab3[] = {"Paul", "Jacques", "Paul", "Jean", "Paul"};
-	string strAChercher = "Paul";
-	cout << "Nombre de \"" << strAChercher << "\": "
-		  << nbOcc(tab3, strAChercher, 5) << endl;
-
-//	const char *tab4[] = {"Paul", "Jacques", "Paul", "Jean", "Paul"};
-//	const char *charATrouver = "Paul";
-//	cout << "Nombre de \"" << strAChercher << "\": "
-//		  << nbOcc(tab4, charATrouver, 5) << endl;
+	{
+		const int TAB[] = {0, 1, 0};
+		const size_t TAILLE = sizeof(TAB) / sizeof(int);
+		size_t n = nbOcc(TAB, TAILLE, 0);
+		cout << "nbr d'occurrences = " << n << endl;
+	}
+	{
+		const Temps TAB[] = {
+			{7,  45},
+			{9,  20},
+			{12, 0},
+			{21, 30}
+		};
+		const size_t TAILLE = sizeof(TAB) / sizeof(Temps);
+		size_t n = nbOcc(TAB, TAILLE, {12, 0});
+		cout << "nbr d'occurrences = " << n << endl;
+	}
+	{
+		const string TAB[] = {"Paul", "Jacques", "Paul", "Jean", "Paul"};
+		const size_t TAILLE = sizeof(TAB) / sizeof(string);
+		size_t n = nbOcc(TAB, TAILLE, string("Paul"));
+		cout << "nbr d'occurrences = " << n << endl;
+	}
+//	{
+//		const char* TAB[] = {"Paul", "Jacques", "Paul", "Jean", "Paul"};
+//		const size_t TAILLE = sizeof(TAB) / sizeof(const char*);
+//		const char* prenom = "Paul";
+//		size_t n = nbOcc(TAB, TAILLE, prenom);
+//		cout << "nbr d'occurrences = " << n << endl;
+//	}
 
 	return EXIT_SUCCESS;
 }
