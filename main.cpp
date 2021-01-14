@@ -11,5 +11,5 @@
 using namespace std;
 
 int main() {
-	return ex8_2();
+	return ex8_8();
 }
