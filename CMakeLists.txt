@@ -13,4 +13,5 @@ add_executable(PRG1_Exercices main.cpp Chapitre1.cpp exercises.h Chapitre2.cpp
         Chapitre7/Ex7_10-11/Message.cpp Chapitre7/Ex7_10-11/Message.h Chapitre7/Ex7_10-11/Mailbox.cpp
         Chapitre7/Ex7_12/Personne.cpp Chapitre7/Ex7_12/Personne.h Chapitre7/Ex7_12/Adresse.cpp Chapitre7/Ex7_12/Adresse.h Chapitre7/Ex7_12/hobby.h
         Chapitre8/ex8_2.cpp Chapitre8/ex8_6.cpp Chapitre8/ex8_7.cpp Chapitre8/ex8_8.cpp
-        Chapitre9/ex9_9.cpp Chapitre9/ex9_10.cpp Chapitre9/ex9_11.cpp Chapitre9/ex9_13.cpp)
+        Chapitre9/ex9_5.cpp Chapitre9/ex9_6.cpp Chapitre9/ex9_9.cpp Chapitre9/ex9_10.cpp
+        Chapitre9/ex9_11.cpp Chapitre9/ex9_13.cpp)

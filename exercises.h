@@ -85,6 +85,8 @@ int ex8_6();
 int ex8_7();
 int ex8_8();
 
+int ex9_5();
+int ex9_6();
 int ex9_9();
 int ex9_10();
 int ex9_11();

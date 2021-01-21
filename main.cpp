@@ -13,5 +13,5 @@
 using namespace std;
 
 int main() {
-	return ex9_13();
+	return ex9_6();
 }
