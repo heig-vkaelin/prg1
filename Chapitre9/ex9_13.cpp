@@ -7,21 +7,24 @@
 #include <string>
 
 using namespace std;
+namespace Ex9_13 {
+	class Erreur : public runtime_error {
+	public:
+		Erreur(int no, const string &what_arg = "") noexcept
+			: runtime_error(what_arg), no(no) {}
 
-class Erreur : public runtime_error {
-public:
-	Erreur(int no, const string &what_arg = "") noexcept
-		: runtime_error(what_arg), no(no) {}
+		int noErreur() const noexcept { return no; }
 
-	int noErreur() const noexcept { return no; }
+	private:
+		int no;
+	};
 
-private:
-	int no;
-};
-
-void f() {
-	throw Erreur(999, "blablabla...");
+	void f() {
+		throw Erreur(999, "blablabla...");
+	}
 }
+
+using namespace Ex9_13;
 
 int ex9_13() {
 	try {
