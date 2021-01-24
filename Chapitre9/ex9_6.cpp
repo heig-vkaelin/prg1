@@ -14,20 +14,18 @@ namespace Ex9_6 {
 	public:
 		Identite() = default;
 
-		Identite(const string &prenom, const string &nom) try {
+		Identite(const string &prenom, const string &nom) {
 			if (prenom.empty()) {
-				throw invalid_argument("prenom ne peut pas etre une chaine vide.");
+				throw invalid_argument("Exception survenue dans Identite::Identite():\n"
+											  "prenom ne peut pas etre une chaine vide.");
 			}
 			if (nom.empty()) {
-				throw invalid_argument("nom ne peut pas etre une chaine vide.");
+				throw invalid_argument("Exception survenue dans Identite::Identite():\n"
+											  "nom ne peut pas etre une chaine vide.");
 			}
 			this->prenom = prenom;
 			this->nom = nom;
-		}
-		catch (const invalid_argument &e) {
-			cout << "Exception survenue dans Identite::Identite()." << endl
-				  << e.what() << endl;
-			throw;
+			cout << "Dans Identite::Identite(): " << toString() << "." << endl;
 		}
 
 		string toString() const { return prenom + " " + nom; }
@@ -40,11 +38,14 @@ namespace Ex9_6 {
 	class Personne {
 	public:
 		Personne(const string &prenom, const string &nom)
-		try: identite(Identite(prenom, nom)) {
+		try: identite(prenom, nom) {
+			cout << "Dans Personne::Personne(): "
+				  << identite.toString() << "." << endl;
 		}
 		catch (const invalid_argument &e) {
+			cout << e.what() << endl;
 			cout << "Exception survenue dans Personne::Personne()." << endl;
-			throw;
+			// throw; Exception automatiquement repropagée
 		}
 
 	private:

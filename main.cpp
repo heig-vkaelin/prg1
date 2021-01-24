@@ -9,6 +9,7 @@
 #include <numeric>
 #include <limits>
 #include <stdexcept>
+#include <cmath>
 
 using namespace std;
 
